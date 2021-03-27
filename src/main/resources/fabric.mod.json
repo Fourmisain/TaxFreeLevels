@@ -1,0 +1,25 @@
+{
+	"schemaVersion": 1,
+	"id": "taxfreelevels",
+	"version": "${version}",
+	"name": "Tax Free Levels",
+	"description": "Flattens anvil and enchantment costs and makes renaming items always cost 1 level.",
+	"authors": [
+		"Fourmisain"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/tax-free-levels",
+		"sources": "https://github.com/Fourmisain/TaxFreeLevels",
+		"issues": "https://github.com/Fourmisain/TaxFreeLevels/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/taxfreelevels/icon.png",
+	"environment": "*",
+	"mixins": [
+		"taxfreelevels.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.11.1",
+		"minecraft": ">=1.16.2"
+	}
+}
