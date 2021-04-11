@@ -26,3 +26,7 @@ Say again, you reached level 68 and want to apply another enchantment on your pi
 In Vanilla, you pay 10220 XP (the XP needed to get from level 33 to 68).  
 With Tax Free Levels, you pay 2045 XP (the XP needed to get from level 0 to 35).  
 You'd normally lose 8000 of your 12000 XP dragon reward here and there!
+
+---
+
+This is meant as a partial replacement for user11681's limitless, specifically the "level normalization". No code was taken, only the idea.
