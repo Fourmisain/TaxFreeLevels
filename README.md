@@ -15,6 +15,7 @@ For Enchantment Tables, if you are above level 30, instead of e.g. paying 3 leve
 * requires Minecraft 1.16.2+, Fabric Loader 0.11.1+
 * required on the server and client
 * (it *does* work server-only, but the level cost won't show up correctly when renaming items)
+* compatible with with Draylar1's Reroll
 
 ## Comparison
 
