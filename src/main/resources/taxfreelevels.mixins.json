@@ -3,9 +3,11 @@
 	"minVersion": "0.8",
 	"package": "fourmisain.taxfreelevels.mixin",
 	"compatibilityLevel": "JAVA_8",
+	"plugin": "fourmisain.taxfreelevels.MixinConfig",
 	"mixins": [
 		"AnvilScreenHandlerMixin",
-		"PlayerEntityMixin"
+		"PlayerEntityMixin",
+		"RerollMixin"
 	],
 	"client": [
 	],

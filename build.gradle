@@ -9,14 +9,21 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+repositories {
+	maven { url 'https://jitpack.io' }
+
+	// for Reroll
+	maven { url "https://maven.shedaniel.me/" }
+	maven { url "https://maven.terraformersmc.com/releases" }
+	jcenter()
+}
+
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-	// testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
-	// testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+	modCompileOnly "com.github.Draylar:reroll:1.16-SNAPSHOT"
 }
 
 processResources {

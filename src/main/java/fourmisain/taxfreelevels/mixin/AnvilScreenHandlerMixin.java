@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(AnvilScreenHandler.class)
-public class AnvilScreenHandlerMixin {
+public abstract class AnvilScreenHandlerMixin {
 	/**
 	 * Flatten anvil cost
 	 * Should replace addExperienceLevels(-levelCost)
