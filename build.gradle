@@ -15,7 +15,6 @@ repositories {
 	// for Reroll
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases" }
-	jcenter()
 }
 
 dependencies {
