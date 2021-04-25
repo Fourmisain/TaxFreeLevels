@@ -19,7 +19,7 @@
 		"taxfreelevels.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.11.1",
-		"minecraft": ">=1.16.2"
+		"fabricloader": "*",
+		"minecraft": ">=1.16.0"
 	}
 }
