@@ -1,8 +1,14 @@
 package io.github.fourmisain.taxfreelevels;
 
 import net.minecraft.entity.player.PlayerEntity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TaxFreeLevels {
+    public static String MOD_ID = "taxfreelevels";
+    public static String CUSTOM_OPTIONS_FIELD = "taxfreelevels:options";
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+
     /** The XP needed to get from level 'from' to level 'to' */
     public static int getXpDifference(PlayerEntity player, int from, int to) {
         int currentLevel = player.experienceLevel;

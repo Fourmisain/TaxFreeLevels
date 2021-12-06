@@ -1,33 +1,64 @@
 package io.github.fourmisain.taxfreelevels;
 
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.metadata.CustomValue;
+import net.fabricmc.loader.api.metadata.ModMetadata;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MixinConfig implements IMixinConfigPlugin {
+	private final Set<String> disabledMixins = new HashSet<>();
+
 	@Override
 	public void onLoad(String mixinPackage) {
+		// check for custom options in other mods
+		for (ModContainer container : FabricLoader.getInstance().getAllMods()) {
+			ModMetadata metadata = container.getMetadata();
 
+			if (!metadata.containsCustomValue(TaxFreeLevels.CUSTOM_OPTIONS_FIELD))
+				continue;
+
+			for (var entry : metadata.getCustomValue(TaxFreeLevels.CUSTOM_OPTIONS_FIELD).getAsObject()) {
+				String key = entry.getKey();
+				CustomValue value = entry.getValue();
+
+				// parse mixin options
+				if (key.startsWith("mixin.")) {
+					String mixinName = key.substring("mixin.".length());
+
+					// disable mixins - trying to enable them will do nothing
+					if (!value.getAsBoolean()) {
+						TaxFreeLevels.LOGGER.debug("{} disabled {}", metadata.getId(), mixinName);
+						disabledMixins.add(mixinName);
+					}
+				}
+			}
+		}
+
+		// don't target Reroll if it doesn't exist
+		if (!FabricLoader.getInstance().isModLoaded("reroll")) {
+			disabledMixins.add("RerollMixin");
+		}
+
+		// partial compatibility with LevelZ
+		if (FabricLoader.getInstance().isModLoaded("levelz")) {
+			disabledMixins.add("FlattenAnvilCostMixin");
+		}
+	}
+
+	@Override
+	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+		String mixinName = mixinClassName.substring(mixinClassName.lastIndexOf(".mixin") + ".mixin".length() + 1);
+		return !disabledMixins.contains(mixinName);
 	}
 
 	@Override
 	public String getRefMapperConfig() {
 		return null;
-	}
-
-	@Override
-	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		// full support for Reroll
-		if (mixinClassName.endsWith("RerollMixin") && !FabricLoader.getInstance().isModLoaded("reroll")) return false;
-
-		// partial compatibility with LevelZ
-		if (FabricLoader.getInstance().isModLoaded("levelz") && mixinClassName.endsWith("FlattenAnvilCostMixin")) return false;
-
-		return true;
 	}
 
 	@Override

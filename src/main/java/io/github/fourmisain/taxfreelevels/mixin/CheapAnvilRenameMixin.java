@@ -25,7 +25,7 @@ public abstract class CheapAnvilRenameMixin {
 			target = "Lnet/minecraft/screen/Property;get()I",
 			ordinal = 1
 		),
-		locals = LocalCapture.CAPTURE_FAILSOFT)
+		locals = LocalCapture.CAPTURE_FAILHARD)
 	public void taxfreelevels$makeRenamingCheap(CallbackInfo ci, ItemStack itemStack, int i, int j, int k) {
 		// k is set to 1 when renaming, i is the total cost without the repair cost j,
 		// so this condition means we are only renaming:
