@@ -27,9 +27,8 @@ public abstract class AnvilScreenHandlerMixin {
 			target = "Lnet/minecraft/entity/player/PlayerEntity;addExperienceLevels(I)V"
 		)
 	)
-	public void updateExperienceLevel(PlayerEntity player, int negativeLevelCost) {
-		int xpCost = TaxFreeLevels.getXpDifference(player, 0, -negativeLevelCost);
-		player.addExperience(-xpCost);
+	public void taxfreelevels$flattenAnvilCost(PlayerEntity player, int negativeLevelCost) {
+		TaxFreeLevels.applyFlattenedAnvilCost(player, negativeLevelCost);
 	}
 
 	@Shadow @Final private Property levelCost;
@@ -45,7 +44,7 @@ public abstract class AnvilScreenHandlerMixin {
 			ordinal = 1
 		),
 		locals = LocalCapture.CAPTURE_FAILSOFT)
-	public void updateResult(CallbackInfo ci, ItemStack itemStack, int i, int j, int k) {
+	public void taxfreelevels$makeRenamingCheap(CallbackInfo ci, ItemStack itemStack, int i, int j, int k) {
 		// k is set to 1 when renaming, i is the total cost without the repair cost j,
 		// so this condition means we are only renaming:
 		if (k > 0 && k == i) {

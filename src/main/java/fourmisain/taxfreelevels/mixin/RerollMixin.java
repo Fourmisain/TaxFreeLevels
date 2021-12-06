@@ -21,14 +21,7 @@ public abstract class RerollMixin {
 		),
 		remap = false
 	)
-	private static void updateExperienceLevel(PlayerEntity player, int negativeLevelCost) {
-		int currentLevel = player.experienceLevel;
-
-		if (currentLevel >= 30) {
-			int xpCost = TaxFreeLevels.getXpDifference(player, 30 + negativeLevelCost, 30);
-			player.addExperience(-xpCost);
-		} else {
-			player.addExperienceLevels(negativeLevelCost);
-		}
+	private static void taxfreelevels$flattenRerollCost(PlayerEntity player, int negativeLevelCost) {
+		TaxFreeLevels.applyFlattenedEnchantmentCost(player, -negativeLevelCost);
 	}
 }

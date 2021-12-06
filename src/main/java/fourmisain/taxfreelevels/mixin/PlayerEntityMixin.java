@@ -20,15 +20,9 @@ public abstract class PlayerEntityMixin {
 			ordinal = 1
 		)
 	)
-	public void updateExperienceLevel(PlayerEntity player, int newVanillaLevel) {
-		int currentLevel = player.experienceLevel;
-		int vanillaLevelCost = currentLevel - newVanillaLevel;
+	public void taxfreelevels$flattenEnchantmentCost(PlayerEntity player, int newLevel) {
+		int levelCost = player.experienceLevel - newLevel;
 
-		if (currentLevel >= 30) {
-			int xpCost = TaxFreeLevels.getXpDifference(player, 30 - vanillaLevelCost, 30);
-			player.addExperience(-xpCost);
-		} else {
-			player.experienceLevel = newVanillaLevel;
-		}
+		TaxFreeLevels.applyFlattenedEnchantmentCost(player, levelCost);
 	}
 }
