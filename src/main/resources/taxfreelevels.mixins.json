@@ -1,9 +1,9 @@
 {
 	"required": true,
 	"minVersion": "0.8",
-	"package": "fourmisain.taxfreelevels.mixin",
+	"package": "io.github.fourmisain.taxfreelevels.mixin",
 	"compatibilityLevel": "JAVA_16",
-	"plugin": "fourmisain.taxfreelevels.MixinConfig",
+	"plugin": "io.github.fourmisain.taxfreelevels.MixinConfig",
 	"mixins": [
 		"FlattenAnvilCostMixin",
 		"CheapAnvilRenameMixin",

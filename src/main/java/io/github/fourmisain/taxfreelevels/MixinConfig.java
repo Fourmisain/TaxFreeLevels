@@ -1,4 +1,4 @@
-package fourmisain.taxfreelevels;
+package io.github.fourmisain.taxfreelevels;
 
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;

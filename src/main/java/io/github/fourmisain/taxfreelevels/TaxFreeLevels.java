@@ -1,4 +1,4 @@
-package fourmisain.taxfreelevels;
+package io.github.fourmisain.taxfreelevels;
 
 import net.minecraft.entity.player.PlayerEntity;
 

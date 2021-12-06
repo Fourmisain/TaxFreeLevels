@@ -1,6 +1,6 @@
-package fourmisain.taxfreelevels.mixin;
+package io.github.fourmisain.taxfreelevels.mixin;
 
-import fourmisain.taxfreelevels.TaxFreeLevels;
+import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.AnvilScreenHandler;
