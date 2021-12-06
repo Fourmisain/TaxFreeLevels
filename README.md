@@ -12,7 +12,7 @@ More precisely:
 For Anvils, instead of paying the levels directly, you pay the amount of XP needed to get from level 0 to that level.  
 For Enchantment Tables, if you are above level 30, instead of e.g. paying 3 levels, you pay the amount of XP needed to get from level 27 to 30.
 
-* requires Minecraft 1.16.2+, Fabric Loader 0.11.1+
+* requires Minecraft 1.16-1.18, Fabric Loader
 * required on the server and client
 * (it *does* work server-only, but the level cost won't show up correctly when renaming items)
 * compatible with with Draylar1's Reroll
@@ -31,3 +31,22 @@ You'd normally lose 8000 of your 12000 XP dragon reward here and there!
 ---
 
 This is meant as a partial replacement for user11681's limitless, specifically the "level normalization". No code was taken, only the idea.
+
+## For Mod Devs
+
+The mod can be compiled against with [JitPack](https://jitpack.io/#Fourmisain/TaxFreeLevels) (using regular `modImplementation`).  
+The main `TaxFreeLevels` class contains some hopefully useful methods to help mod integration.  
+If you want to disable certain mixins, you can do so by adding a custom field to your `fabric.mod.json` like so:
+
+```
+"custom": {
+	"taxfreelevels:options": {
+		"mixin.CheapAnvilRenameMixin": true,
+		"mixin.FlattenAnvilCostMixin": true,
+		"mixin.FlattenEnchantmentCostMixin": true,
+		"mixin.RerollMixin": true
+	}
+}
+```
+
+Setting any value to `false` will disable that particular mixin (`true` values are ignored and can be left out).

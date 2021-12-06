@@ -36,12 +36,12 @@ public class TaxFreeLevels {
         player.addExperience(0);
     }
 
-    /** The XP cost for the anvil */
+    /** The "flattened" XP cost for the anvil */
     public static int getFlattenedAnvilXpCost(PlayerEntity player, int levelCost) {
         return TaxFreeLevels.getXpDifference(player, 0, levelCost);
     }
 
-    /** The XP cost for the enchanting table (only for player level 30 and up) */
+    /** The "flattened" XP cost for the enchanting table (only for player level 30 and up) */
     public static int getFlattenedEnchantmentXpCost(PlayerEntity player, int levelCost) {
         if (player.experienceLevel < 30) throw new IllegalArgumentException("only defined above player level 30");
 
