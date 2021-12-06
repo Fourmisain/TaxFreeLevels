@@ -18,8 +18,8 @@ public class TaxFreeLevels {
         return xpSum;
     }
 
-    public static void applyFlattenedAnvilCost(PlayerEntity player, int negativeLevelCost) {
-        int xpCost = TaxFreeLevels.getXpDifference(player, 0, -negativeLevelCost);
+    public static void applyFlattenedAnvilCost(PlayerEntity player, int levelCost) {
+        int xpCost = TaxFreeLevels.getXpDifference(player, 0, levelCost);
         player.addExperience(-xpCost);
     }
 

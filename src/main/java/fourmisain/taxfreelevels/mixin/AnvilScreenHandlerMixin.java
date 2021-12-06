@@ -28,7 +28,7 @@ public abstract class AnvilScreenHandlerMixin {
 		)
 	)
 	public void taxfreelevels$flattenAnvilCost(PlayerEntity player, int negativeLevelCost) {
-		TaxFreeLevels.applyFlattenedAnvilCost(player, negativeLevelCost);
+		TaxFreeLevels.applyFlattenedAnvilCost(player, -negativeLevelCost);
 	}
 
 	@Shadow @Final private Property levelCost;
