@@ -6,8 +6,10 @@ import org.apache.logging.log4j.Logger;
 
 public class TaxFreeLevels {
     public static String MOD_ID = "taxfreelevels";
-    public static String CUSTOM_OPTIONS_FIELD = "taxfreelevels:options";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+
+    /** For example usage see this mod's fabric.mod.json */
+    public static String CUSTOM_OPTIONS_FIELD = "taxfreelevels:options";
 
     /** The XP needed to get from level 'from' to level 'to' */
     public static int getXpDifference(PlayerEntity player, int from, int to) {
@@ -34,15 +36,25 @@ public class TaxFreeLevels {
         player.addExperience(0);
     }
 
+    /** The XP cost for the anvil */
+    public static int getFlattenedAnvilXpCost(PlayerEntity player, int levelCost) {
+        return TaxFreeLevels.getXpDifference(player, 0, levelCost);
+    }
+
+    /** The XP cost for the enchanting table (only for player level 30 and up) */
+    public static int getFlattenedEnchantmentXpCost(PlayerEntity player, int levelCost) {
+        if (player.experienceLevel < 30) throw new IllegalArgumentException("only defined above player level 30");
+
+        return TaxFreeLevels.getXpDifference(player, 30 - levelCost, 30);
+    }
+
     public static void applyFlattenedAnvilCost(PlayerEntity player, int levelCost) {
-        int xpCost = TaxFreeLevels.getXpDifference(player, 0, levelCost);
-        addNoScoreExperience(player, -xpCost);
+        addNoScoreExperience(player, -getFlattenedAnvilXpCost(player, levelCost));
     }
 
     public static void applyFlattenedEnchantmentCost(PlayerEntity player, int levelCost) {
         if (player.experienceLevel >= 30) {
-            int xpCost = TaxFreeLevels.getXpDifference(player, 30 - levelCost, 30);
-            addNoScoreExperience(player, -xpCost);
+            addNoScoreExperience(player, -getFlattenedEnchantmentXpCost(player, levelCost));
         } else {
             player.addExperienceLevels(-levelCost);
         }
