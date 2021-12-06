@@ -18,15 +18,25 @@ public class TaxFreeLevels {
         return xpSum;
     }
 
+    /** A way to add experience without affecting the player's score */
+    public static void addNoScoreExperience(PlayerEntity player, int xp) {
+        /*
+         * note: there's the SCORE data tracker (used on the death screen) but also totalExperience,
+         * which used for the XP scoreboard criterion, neither of which we wanna touch
+         */
+        player.experienceProgress += (float) xp / (float) player.getNextLevelExperience();
+        player.addExperience(0);
+    }
+
     public static void applyFlattenedAnvilCost(PlayerEntity player, int levelCost) {
         int xpCost = TaxFreeLevels.getXpDifference(player, 0, levelCost);
-        player.addExperience(-xpCost);
+        addNoScoreExperience(player, -xpCost);
     }
 
     public static void applyFlattenedEnchantmentCost(PlayerEntity player, int levelCost) {
         if (player.experienceLevel >= 30) {
             int xpCost = TaxFreeLevels.getXpDifference(player, 30 - levelCost, 30);
-            player.addExperience(-xpCost);
+            addNoScoreExperience(player, -xpCost);
         } else {
             player.addExperienceLevels(-levelCost);
         }
