@@ -21,7 +21,12 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+		// full support for Reroll
 		if (mixinClassName.endsWith("RerollMixin") && !FabricLoader.getInstance().isModLoaded("reroll")) return false;
+
+		// partial compatibility with LevelZ
+		if (FabricLoader.getInstance().isModLoaded("levelz") && mixinClassName.endsWith("FlattenAnvilCostMixin")) return false;
+
 		return true;
 	}
 
