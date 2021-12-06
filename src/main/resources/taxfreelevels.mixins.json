@@ -5,8 +5,9 @@
 	"compatibilityLevel": "JAVA_16",
 	"plugin": "fourmisain.taxfreelevels.MixinConfig",
 	"mixins": [
-		"AnvilScreenHandlerMixin",
-		"PlayerEntityMixin",
+		"FlattenAnvilCostMixin",
+		"CheapAnvilRenameMixin",
+		"FlattenEnchantmentCostMixin",
 		"RerollMixin"
 	],
 	"client": [

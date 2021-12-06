@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin {
+public abstract class FlattenEnchantmentCostMixin {
 	/**
 	 * Flatten enchantment cost
 	 * Should replace experienceLevel -= experienceLevels
