@@ -3,7 +3,7 @@
 	"id": "taxfreelevels",
 	"version": "${version}",
 	"name": "Tax Free Levels",
-	"description": "Flattens anvil and enchantment costs and makes renaming items always cost 1 level.",
+	"description": "Flattens anvil and enchantment costs above player level 30 and makes renaming items always cost 1 level.",
 	"authors": [
 		"Fourmisain"
 	],
