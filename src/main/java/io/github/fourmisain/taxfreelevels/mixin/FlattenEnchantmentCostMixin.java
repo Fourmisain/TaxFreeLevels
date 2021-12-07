@@ -2,27 +2,41 @@ package io.github.fourmisain.taxfreelevels.mixin;
 
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PlayerEntity.class)
+@Mixin(value = PlayerEntity.class, priority = 1500)
 public abstract class FlattenEnchantmentCostMixin {
-	/**
-	 * Flatten enchantment cost
-	 * Should replace experienceLevel -= experienceLevels
-	 */
-	@Redirect(
+	@Shadow
+	public int experienceLevel;
+
+	@Unique
+	private int taxfreelevels$previousLevel;
+
+	@Inject(method = "applyEnchantmentCosts", at = @At(value = "HEAD"))
+	public void taxfreelevels$rememberExperienceLevel(ItemStack enchantedItem, int experienceLevels, CallbackInfo ci) {
+		taxfreelevels$previousLevel = experienceLevel;
+	}
+
+	@Inject(
 		method = "applyEnchantmentCosts",
 		at = @At(
 			value = "FIELD",
 			target = "Lnet/minecraft/entity/player/PlayerEntity;experienceLevel:I",
-			ordinal = 1
+			ordinal = 2 // right before this.experienceLevel < 0
 		)
 	)
-	public void taxfreelevels$flattenEnchantmentCost(PlayerEntity player, int newLevel) {
-		int levelCost = player.experienceLevel - newLevel;
+	public void taxfreelevels$flattenEnchantmentCost(ItemStack enchantedItem, int experienceLevels, CallbackInfo ci) {
+		// calculate cost instead of using experienceLevels parameter for compatibility
+		int levelCost = taxfreelevels$previousLevel - experienceLevel;
 
-		TaxFreeLevels.applyFlattenedXpCost(player, levelCost);
+		// reset level and apply level cost as XP cost
+		experienceLevel = taxfreelevels$previousLevel;
+		TaxFreeLevels.applyFlattenedXpCost((PlayerEntity) (Object) this, levelCost);
 	}
 }
