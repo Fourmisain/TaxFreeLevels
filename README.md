@@ -1,18 +1,14 @@
 # Tax Free Levels
 
-A Fabric Minecraft mod which flattens the ever-increasing anvil and enchantment costs and makes renaming items always cost 1 level.
-
 Reaching high levels in Minecraft is hard, because each level requires more XP than the last.  
 Since Anvils and Enchantment Tables work off of levels, not off of collected XP, that means the higher your level, the higher the actual cost in terms of XP.
 
-Tax Free Levels "flattens" the ever-increasing anvil costs and enchantment costs (above level 30), meaning you'll always pay the same amount, regardless of how high your level is.  
-It also makes it so that renaming an item always only costs 1 ("flattened") level.
+Tax Free Levels "flattens the curve" of the ever-increasing anvil and enchantment costs above level 30, meaning you'll always pay the same amount of XP, regardless of how high your level is.  
 
 More precisely:  
-For Anvils, instead of paying the levels directly, you pay the amount of XP needed to get from level 0 to that level.  
-For Enchantment Tables, if you are above level 30, instead of e.g. paying 3 levels, you pay the amount of XP needed to get from level 27 to 30.
-
-* requires Minecraft 1.16-1.18, Fabric Loader
+If you are above level 30, instead of e.g. paying 3 levels, you pay the amount of XP needed to get from level 27 to 30.    
+If the level cost is above 30, you pay the amount of XP needed to get from 0 to that level.
+* for Minecraft 1.16-1.18 using Fabric Loader
 * required on the server and client
 * (it *does* work server-only, but the level cost won't show up correctly when renaming items)
 * compatible with with Draylar1's Reroll
