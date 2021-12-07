@@ -36,25 +36,21 @@ public class TaxFreeLevels {
         player.addExperience(0);
     }
 
-    /** The "flattened" XP cost for the anvil */
-    public static int getFlattenedAnvilXpCost(PlayerEntity player, int levelCost) {
-        return TaxFreeLevels.getXpDifference(player, 0, levelCost);
+    /** The "flattened" XP cost */
+    public static int getFlattenedXpCost(PlayerEntity player, int levelCost) {
+        // pretend the player is at most level 30
+        int pretendLevel = Math.min(player.experienceLevel, 30);
+
+        // get the XP cost for the given levelCost, e.g. the XP needed from level 27 to 30
+        // if the levelCost is bigger than pretendLevel, return the XP needed from 0 to levelCost
+        int from = Math.max(pretendLevel - levelCost, 0);
+        return TaxFreeLevels.getXpDifference(player, from, from + levelCost);
     }
 
-    /** The "flattened" XP cost for the enchanting table (only for player level 30 and up) */
-    public static int getFlattenedEnchantmentXpCost(PlayerEntity player, int levelCost) {
-        if (player.experienceLevel < 30) throw new IllegalArgumentException("only defined above player level 30");
-
-        return TaxFreeLevels.getXpDifference(player, 30 - levelCost, 30);
-    }
-
-    public static void applyFlattenedAnvilCost(PlayerEntity player, int levelCost) {
-        addNoScoreExperience(player, -getFlattenedAnvilXpCost(player, levelCost));
-    }
-
-    public static void applyFlattenedEnchantmentCost(PlayerEntity player, int levelCost) {
+    /** Pay the "flattened" XP cost for the given level cost */
+    public static void applyFlattenedXpCost(PlayerEntity player, int levelCost) {
         if (player.experienceLevel >= 30) {
-            addNoScoreExperience(player, -getFlattenedEnchantmentXpCost(player, levelCost));
+            addNoScoreExperience(player, -getFlattenedXpCost(player, levelCost));
         } else {
             player.addExperienceLevels(-levelCost);
         }

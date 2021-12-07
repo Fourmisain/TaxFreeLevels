@@ -29,7 +29,7 @@ public abstract class FlattenAnvilCostMixin {
 		index = 0
 	)
 	public int taxfreelevels$flattenAnvilCost(int negativeLevelCost) {
-		TaxFreeLevels.applyFlattenedAnvilCost(taxfreelevels$player, -negativeLevelCost);
+		TaxFreeLevels.applyFlattenedXpCost(taxfreelevels$player, -negativeLevelCost);
 		return 0; // we already paid in XP
 	}
 }

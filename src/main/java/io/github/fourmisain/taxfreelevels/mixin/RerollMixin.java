@@ -31,7 +31,7 @@ public abstract class RerollMixin {
 		remap = false
 	)
 	private static int taxfreelevels$flattenRerollCost(int negativeLevelCost) {
-		TaxFreeLevels.applyFlattenedEnchantmentCost(taxfreelevels$player, -negativeLevelCost);
+		TaxFreeLevels.applyFlattenedXpCost(taxfreelevels$player, -negativeLevelCost);
 		return 0; // we already paid in XP
 	}
 }

@@ -23,6 +23,6 @@ public abstract class FlattenEnchantmentCostMixin {
 	public void taxfreelevels$flattenEnchantmentCost(PlayerEntity player, int newLevel) {
 		int levelCost = player.experienceLevel - newLevel;
 
-		TaxFreeLevels.applyFlattenedEnchantmentCost(player, levelCost);
+		TaxFreeLevels.applyFlattenedXpCost(player, levelCost);
 	}
 }
