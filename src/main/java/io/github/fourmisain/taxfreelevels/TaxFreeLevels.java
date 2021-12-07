@@ -49,10 +49,12 @@ public class TaxFreeLevels {
 
     /** Pay the "flattened" XP cost for the given level cost */
     public static void applyFlattenedXpCost(PlayerEntity player, int levelCost) {
-        if (player.experienceLevel >= 30) {
-            addNoScoreExperience(player, -getFlattenedXpCost(player, levelCost));
-        } else {
-            player.addExperienceLevels(-levelCost);
-        }
+        /*
+         * in vanilla, paying levels doesn't actually touch the level progress.
+         * since you need more XP for higher levels this actually means you lose some XP due to your progress now equating to less XP
+         * e.g. if you're 50% into level 30, that's worth 53.5 XP and if you go down to level 20, that 50% progress is now worth only 28.5 XP
+         * it's not much to worry about, but it's the reason why we also pay in XP if the player level is below 30
+         */
+        addNoScoreExperience(player, -getFlattenedXpCost(player, levelCost));
     }
 }
