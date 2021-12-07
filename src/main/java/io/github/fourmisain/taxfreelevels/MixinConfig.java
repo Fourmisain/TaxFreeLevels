@@ -8,7 +8,9 @@ import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MixinConfig implements IMixinConfigPlugin {
 	private final Set<String> disabledMixins = new HashSet<>();
@@ -42,11 +44,6 @@ public class MixinConfig implements IMixinConfigPlugin {
 		// don't target Reroll if it doesn't exist
 		if (!FabricLoader.getInstance().isModLoaded("reroll")) {
 			disabledMixins.add("RerollMixin");
-		}
-
-		// partial compatibility with LevelZ
-		if (FabricLoader.getInstance().isModLoaded("levelz")) {
-			disabledMixins.add("FlattenAnvilCostMixin");
 		}
 	}
 
