@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class TaxFreeLevels {
-    public static String MOD_ID = "taxfreelevels";
+    public static final String MOD_ID = "taxfreelevels";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     /** For example usage see this mod's fabric.mod.json */

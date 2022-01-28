@@ -1,62 +1,45 @@
 plugins {
-	id 'fabric-loom' version '0.10-SNAPSHOT'
-	id 'maven-publish'
+	id "architectury-plugin" version "3.4-SNAPSHOT"
+	id "dev.architectury.loom" version "0.10.0-SNAPSHOT" apply false
 }
 
-targetCompatibility = sourceCompatibility = JavaVersion.VERSION_16
-
-archivesBaseName = project.archives_base_name
-version = project.mod_version
-group = project.maven_group
-
-repositories {
-	maven { url 'https://jitpack.io' }
-
-	// for Reroll
-	maven { url "https://maven.shedaniel.me/" }
-	maven { url "https://maven.terraformersmc.com/releases" }
+architectury {
+	minecraft = rootProject.minecraft_version
 }
 
-dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+subprojects {
+	apply plugin: "dev.architectury.loom"
 
-	modCompileOnly "com.github.Draylar:reroll:1.16-SNAPSHOT"
-}
-
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+	dependencies {
+		minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+		mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 16
-}
+allprojects {
+	apply plugin: "java"
+	apply plugin: "architectury-plugin"
+	apply plugin: "maven-publish"
 
-java {
-	withSourcesJar()
-}
+	archivesBaseName = rootProject.archives_base_name
+	// version = rootProject.mod_version + rootProject.minecraft_version
+	group = rootProject.maven_group
 
-jar {
-	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
-	}
-}
-
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
-		// Add repositories to publish to here.
-		// mavenLocal()
+		maven { url "https://maven.shedaniel.me/" }
+		maven { url "https://maven.terraformersmc.com/" }
+		maven { url "https://jitpack.io" }
+
+		// for Reroll
+		maven { url "https://maven.shedaniel.me/" }
+		maven { url "https://maven.terraformersmc.com/releases" }
+	}
+
+	tasks.withType(JavaCompile).configureEach {
+		it.options.release = 16
+	}
+
+	java {
+		withSourcesJar()
 	}
 }

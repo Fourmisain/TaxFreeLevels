@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[37,)"
+license="MIT"
+issueTrackerURL="https://github.com/Fourmisain/TaxFreeLevels/issues"
+
+[[mods]]
+modId="taxfreelevels"
+version="${version}"
+displayName="Tax Free Levels"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/tax-free-levels"
+logoFile= "icon.png"
+authors="Fourmisain"
+description='''
+Flattens anvil and enchantment costs above player level 30 and makes renaming items always cost 1 level.
+'''
+
+[[dependencies.taxfreelevels]]
+modId="forge"
+mandatory=true
+versionRange="[37.0.59,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.taxfreelevels]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.17,)"
+ordering="NONE"
+side="BOTH"
