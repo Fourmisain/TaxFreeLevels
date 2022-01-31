@@ -19,7 +19,7 @@ version = rootProject.mod_version + "-forge-" + rootProject.minecraft_version
 
 loom {
 	forge {
-		mixinConfig "taxfreelevels-common.mixins.json", "taxfreelevels-forge.mixins.json"
+		mixinConfig "taxfreelevels-forge.mixins.json"
 	}
 }
 

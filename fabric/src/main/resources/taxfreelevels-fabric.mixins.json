@@ -5,6 +5,8 @@
 	"compatibilityLevel": "JAVA_16",
 	"plugin": "io.github.fourmisain.taxfreelevels.MixinConfig",
 	"mixins": [
+		"CheapAnvilRenameMixin",
+		"FlattenAnvilCostMixin",
 		"FlattenEnchantmentCostMixin",
 		"RerollMixin"
 	],
