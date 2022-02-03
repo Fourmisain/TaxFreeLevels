@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[37,)"
+loaderVersion="[32,)"
 license="MIT"
 issueTrackerURL="https://github.com/Fourmisain/TaxFreeLevels/issues"
 
@@ -17,13 +17,13 @@ Flattens anvil and enchantment costs above player level 30 and makes renaming it
 [[dependencies.taxfreelevels]]
 modId="forge"
 mandatory=true
-versionRange="[37.0.59,)"
+versionRange="[32.0.108,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.taxfreelevels]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.17,)"
+versionRange="[1.16,)"
 ordering="NONE"
 side="BOTH"
