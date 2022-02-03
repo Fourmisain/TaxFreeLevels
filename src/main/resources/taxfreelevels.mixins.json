@@ -2,11 +2,11 @@
 	"required": true,
 	"minVersion": "0.8",
 	"package": "io.github.fourmisain.taxfreelevels.mixin",
-	"compatibilityLevel": "JAVA_16",
+	"compatibilityLevel": "JAVA_8",
 	"plugin": "io.github.fourmisain.taxfreelevels.MixinConfig",
 	"mixins": [
-		"FlattenAnvilCostMixin",
 		"CheapAnvilRenameMixin",
+		"FlattenAnvilCostMixin",
 		"FlattenEnchantmentCostMixin",
 		"RerollMixin"
 	],

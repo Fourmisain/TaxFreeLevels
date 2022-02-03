@@ -20,7 +20,7 @@
 	],
 	"depends": {
 		"fabricloader": "*",
-		"minecraft": ">=1.17.0"
+		"minecraft": "~1.16.0"
 	},
 	"custom": {
 		"taxfreelevels:options": {

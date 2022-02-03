@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class MixinConfig implements IMixinConfigPlugin {
@@ -24,7 +25,7 @@ public class MixinConfig implements IMixinConfigPlugin {
 			if (!metadata.containsCustomValue(TaxFreeLevels.CUSTOM_OPTIONS_FIELD))
 				continue;
 
-			for (var entry : metadata.getCustomValue(TaxFreeLevels.CUSTOM_OPTIONS_FIELD).getAsObject()) {
+			for (Map.Entry<String, CustomValue> entry : metadata.getCustomValue(TaxFreeLevels.CUSTOM_OPTIONS_FIELD).getAsObject()) {
 				String key = entry.getKey();
 				CustomValue value = entry.getValue();
 

@@ -9,14 +9,14 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = AnvilScreenHandler.class, priority = 1500)
 public abstract class FlattenAnvilCostMixin {
 	@Unique private PlayerEntity taxfreelevels$player;
 
 	@Inject(method = "onTakeOutput", at = @At("HEAD"))
-	public void taxfreelevels$capturePlayer(PlayerEntity player, ItemStack stack, CallbackInfo ci) {
+	public void taxfreelevels$capturePlayer(PlayerEntity player, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		taxfreelevels$player = player;
 	}
 

@@ -3,10 +3,10 @@ plugins {
 	id 'maven-publish'
 }
 
-targetCompatibility = sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version
+version = project.mod_version + "-" + project.minecraft_version
 group = project.maven_group
 
 repositories {
@@ -34,7 +34,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 16
+	it.options.release = 8
 }
 
 java {
