@@ -12,7 +12,7 @@ group = project.maven_group
 repositories {
 	maven { url 'https://jitpack.io' }
 
-	// for Reroll
+	// for Reroll / Charm
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases" }
 }
@@ -23,6 +23,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	modCompileOnly "com.github.Draylar:reroll:1.16-SNAPSHOT"
+	modCompileOnly "com.github.Fourmisain:Charm:1.16compat-SNAPSHOT"
 }
 
 processResources {
