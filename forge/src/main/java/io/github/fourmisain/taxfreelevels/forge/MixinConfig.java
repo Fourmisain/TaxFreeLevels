@@ -34,6 +34,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 			disabledMixins.add("CheapAnvilRenameMixin");
 			disabledMixins.add("FlattenAnvilCostMixin");
 		}
+
+		if (!isModInstalled("charm"))
+			disabledMixins.add("CharmMixin");
 	}
 
 	@Override

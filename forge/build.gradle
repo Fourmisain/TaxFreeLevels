@@ -28,6 +28,8 @@ dependencies {
 
 	common(project(path: ":common", configuration: "namedElements")) { transitive false }
 	shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+
+	implementation files('../charm-forge-1.16.5-2.3.2.jar')
 }
 
 processResources {
