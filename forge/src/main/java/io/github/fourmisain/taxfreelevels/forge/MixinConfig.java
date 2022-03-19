@@ -37,6 +37,10 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 		if (!isModInstalled("charm"))
 			disabledMixins.add("CharmMixin");
+
+		// note: Fabric Waystones has the same mod id
+		if (!isModInstalled("waystones"))
+			disabledMixins.add("WaystonesMixin");
 	}
 
 	@Override
