@@ -1,5 +1,5 @@
 plugins {
-	id "com.github.johnrengelman.shadow" version "7.1.0"
+	id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 architectury {
@@ -35,11 +35,14 @@ processResources {
 }
 
 shadowJar {
+	exclude "architectury.common.json"
+
 	configurations = [project.configurations.shadowCommon]
 	classifier "dev-shadow"
 }
 
 remapJar {
+	injectAccessWidener = true
 	input.set shadowJar.archiveFile
 	dependsOn shadowJar
 	classifier null
