@@ -1,18 +1,19 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "io.github.fourmisain.taxfreelevels.mixin",
-	"compatibilityLevel": "JAVA_16",
-	"plugin": "io.github.fourmisain.taxfreelevels.MixinConfig",
-	"mixins": [
-		"CheapAnvilRenameMixin",
-		"FlattenAnvilCostMixin",
-		"FlattenEnchantmentCostMixin",
-		"RerollMixin"
-	],
-	"client": [
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.fourmisain.taxfreelevels.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "plugin": "io.github.fourmisain.taxfreelevels.MixinConfig",
+  "mixins": [
+    "CheapAnvilRenameMixin",
+    "FlattenAnvilCostMixin",
+    "FlattenEnchantmentCostMixin",
+    "RerollMixin",
+    "SpectrumMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

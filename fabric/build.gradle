@@ -21,6 +21,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
 	modCompileOnly "com.github.Draylar:reroll:1.16-SNAPSHOT"
+	modCompileOnly "maven.modrinth:spectrum:${project.spectrum_version}"
 
 	common(project(path: ":common", configuration: "namedElements")) { transitive false }
 	shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }

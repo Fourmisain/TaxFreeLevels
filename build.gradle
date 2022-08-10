@@ -33,6 +33,14 @@ allprojects {
 		// for Reroll
 		maven { url "https://maven.shedaniel.me/" }
 		maven { url "https://maven.terraformersmc.com/releases" }
+
+		maven {
+			name = "Modrinth"
+			url = "https://api.modrinth.com/maven"
+			content {
+				includeGroup "maven.modrinth"
+			}
+		}
 	}
 
 	tasks.withType(JavaCompile).configureEach {
