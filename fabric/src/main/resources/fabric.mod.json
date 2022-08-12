@@ -16,7 +16,8 @@
 	"icon": "assets/taxfreelevels/icon.png",
 	"environment": "*",
 	"mixins": [
-		"taxfreelevels-fabric.mixins.json"
+		"taxfreelevels-fabric.mixins.json",
+		"taxfreelevels-fabric1_17.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.14.6",

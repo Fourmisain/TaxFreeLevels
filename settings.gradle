@@ -9,6 +9,7 @@ pluginManagement {
 
 include("common")
 include("fabric")
+include("fabric1_17")
 include("forge")
 
 rootProject.name = "TaxFreeLevels"

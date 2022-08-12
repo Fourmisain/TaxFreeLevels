@@ -26,6 +26,8 @@ dependencies {
 
 	common(project(path: ":common", configuration: "namedElements")) { transitive false }
 	shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+	common(project(path: ":fabric1_17", configuration: "namedElements")) { transitive false }
+	shadowCommon(project(path: ":fabric1_17", configuration: "transformProductionFabric")) { transitive false }
 }
 
 processResources {

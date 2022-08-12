@@ -2,6 +2,7 @@ package io.github.fourmisain.taxfreelevels.mixin;
 
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -11,31 +12,30 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.extract_enchantments.ExtractEnchantments;
 
-// for 1.18 and 1.19
-@Mixin(ExtractEnchantments.class)
-public abstract class CharmMixin {
+// for 1.17
+@Mixin(targets = "svenhjol.charm.module.extract_enchantments.ExtractEnchantments$2")
+public abstract class Charm1_17Mixin {
 	@Unique
 	private static PlayerEntity taxfreelevels$player;
 
 	@Inject(
-		method = "lambda$handleOnTake$1(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+		method = "lambda$onTake$0(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 		at = @At("HEAD")
 	)
-	private static void taxfreelevels$capturePlayer(ItemStack out, PlayerEntity player, ItemStack stack, World level, BlockPos pos, CallbackInfo ci) {
+	private void taxfreelevels$capturePlayer(Inventory inventory, PlayerEntity player, ItemStack stack, ItemStack stack2, World world, BlockPos pos, CallbackInfo ci) {
 		taxfreelevels$player = player;
 	}
 
 	@ModifyArg(
-		method = "lambda$handleOnTake$1(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+		method = "lambda$onTake$0(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/entity/player/PlayerEntity;addExperienceLevels(I)V"
 		),
 		index = 0
 	)
-	private static int taxfreelevels$flattenRerollCost(int negativeLevelCost) {
+	private int taxfreelevels$flattenRerollCost(int negativeLevelCost) {
 		TaxFreeLevels.applyFlattenedXpCost(taxfreelevels$player, -negativeLevelCost);
 		return 0; // we already paid in XP
 	}
