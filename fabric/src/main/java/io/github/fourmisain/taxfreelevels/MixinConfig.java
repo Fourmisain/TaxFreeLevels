@@ -46,6 +46,11 @@ public class MixinConfig implements IMixinConfigPlugin {
 			disabledMixins.add("RerollMixin");
 		}
 
+		// don't target Charm if it doesn't exist
+		if (!FabricLoader.getInstance().isModLoaded("charm")) {
+			disabledMixins.add("CharmMixin");
+		}
+
 		// don't target Spectrum if it doesn't exist
 		if (!FabricLoader.getInstance().isModLoaded("spectrum")) {
 			disabledMixins.add("SpectrumMixin");
