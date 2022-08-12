@@ -78,6 +78,11 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!FabricLoader.getInstance().isModLoaded("spectrum")) {
 			disabledMixins.add("SpectrumMixin");
 		}
+
+		// Enchanting Infuser
+		if (!FabricLoader.getInstance().isModLoaded("enchantinginfuser")) {
+			disabledMixins.add("EnchantingInfuserMixin");
+		}
 	}
 
 	@Override
