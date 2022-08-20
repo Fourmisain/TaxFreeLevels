@@ -43,6 +43,8 @@ loom {
 dependencies {
 	forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
 
+	implementation files('../EnchantingInfuser-v1.0.2-1.16.5-Forge.jar')
+
 	common(project(path: ":common", configuration: "namedElements")) { transitive false }
 	shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
