@@ -84,6 +84,7 @@ task finalize {
 			try (FileSystem fs = FileSystems.newFileSystem(jarFileUri, ['create': 'false'])) {
 				Files.walkFileTree(fs.getPath("net"), new DeletingFileVisitor());
 				Files.walkFileTree(fs.getPath("svenhjol"), new DeletingFileVisitor());
+				Files.walkFileTree(fs.getPath("owmii"), new DeletingFileVisitor());
 			}
 		}
 	}

@@ -9,6 +9,7 @@
 		"CheapAnvilRenameMixin",
 		"FlattenAnvilCostMixin",
 		"FlattenEnchantmentCostMixin",
+		"LostTrinketMixin",
 		"WaystonesMixin"
 	],
 	"injectors": {
