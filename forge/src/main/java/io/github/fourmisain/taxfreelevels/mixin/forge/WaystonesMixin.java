@@ -40,7 +40,7 @@ public abstract class WaystonesMixin {
 		index = 0,
 		remap = false
 	)
-	private static int taxfreelevels$flattenRerollCost(int negativeLevelCost) {
+	private static int taxfreelevels$flattenWaystoneCost(int negativeLevelCost) {
 		TaxFreeLevels.applyFlattenedXpCost(taxfreelevels$player, -negativeLevelCost);
 		return 0; // we already paid in XP
 	}
