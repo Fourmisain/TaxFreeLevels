@@ -7,7 +7,8 @@
 	"mixins": [
 		"CheapAnvilRenameMixin",
 		"FlattenAnvilCostMixin",
-		"FlattenEnchantmentCostMixin"
+		"FlattenEnchantmentCostMixin",
+		"WaystonesMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

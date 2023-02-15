@@ -1,5 +1,22 @@
+import java.nio.file.*
+import java.nio.file.attribute.BasicFileAttributes
+
+class DeletingFileVisitor extends SimpleFileVisitor<Path> {
+	@Override
+	FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
+		Files.delete(path);
+		return FileVisitResult.CONTINUE;
+	}
+
+	@Override
+	FileVisitResult postVisitDirectory(Path directory, IOException ioException) throws IOException {
+		Files.delete(directory);
+		return FileVisitResult.CONTINUE;
+	}
+}
+
 plugins {
-	id "com.github.johnrengelman.shadow" version "7.1.0"
+	id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 architectury {
@@ -55,6 +72,22 @@ remapJar {
 jar {
 	classifier "dev"
 }
+
+task finalize {
+	doLast {
+		// delete "header files" from jar
+		var jar = file("build/libs/${project.archives_base_name}-${project.version}.jar").toPath()
+		if (Files.exists(jar)) {
+			var jarFileUri = new URI('jar:file', jar.toUri().getSchemeSpecificPart(), jar.toUri().getFragment())
+
+			try (FileSystem fs = FileSystems.newFileSystem(jarFileUri, ['create': 'false'])) {
+				Files.walkFileTree(fs.getPath("net"), new DeletingFileVisitor());
+			}
+		}
+	}
+}
+
+build.finalizedBy(finalize)
 
 sourcesJar {
 	def commonSources = project(":common").sourcesJar

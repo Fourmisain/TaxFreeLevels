@@ -1,6 +1,5 @@
 package io.github.fourmisain.taxfreelevels.forge;
 
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import org.objectweb.asm.tree.ClassNode;
@@ -16,9 +15,6 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 	public static boolean isModInstalled(String modId) {
 		// ModList seems to always be null when shouldApplyMixin is executed
-		if (ModList.get() != null && ModList.get().isLoaded(modId))
-			return true;
-
 		// While not ideal, we can check which mods are loading
 		if (FMLLoader.getLoadingModList() != null)
 			for (ModInfo mod : FMLLoader.getLoadingModList().getMods())
@@ -34,6 +30,10 @@ public class MixinConfig implements IMixinConfigPlugin {
 			disabledMixins.add("CheapAnvilRenameMixin");
 			disabledMixins.add("FlattenAnvilCostMixin");
 		}
+
+		// note: Fabric Waystones has the same mod id
+		if (!isModInstalled("waystones"))
+			disabledMixins.add("WaystonesMixin");
 	}
 
 	@Override

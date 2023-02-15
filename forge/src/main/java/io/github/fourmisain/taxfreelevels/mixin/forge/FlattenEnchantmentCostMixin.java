@@ -36,8 +36,6 @@ public abstract class FlattenEnchantmentCostMixin {
 		// calculate cost instead of using experienceLevels parameter for compatibility
 		int levelCost = taxfreelevels$previousLevel - experienceLevel;
 
-		TaxFreeLevels.LOGGER.info("calculated levelCost {}", levelCost);
-
 		// reset level and apply level cost as XP cost
 		experienceLevel = taxfreelevels$previousLevel;
 		TaxFreeLevels.applyFlattenedXpCost((PlayerEntity) (Object) this, levelCost);
