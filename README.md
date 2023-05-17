@@ -30,7 +30,12 @@ This is meant as a partial replacement for user11681's limitless, specifically t
 
 ## For (Fabric) Mod Devs
 
-The mod can be compiled against with [JitPack](https://jitpack.io/#Fourmisain/TaxFreeLevels) (using regular `modImplementation`).  
+The mod can be compiled against with [JitPack](https://jitpack.io/#Fourmisain/TaxFreeLevels/loom-SNAPSHOT) using
+
+```
+modImplementation 'com.github.Fourmisain:TaxFreeLevels:loom-SNAPSHOT'
+``` 
+
 The main `TaxFreeLevels` class contains some hopefully useful methods to help mod integration.  
 If you want to disable certain mixins, you can do so by adding a custom field to your `fabric.mod.json` like so:
 
