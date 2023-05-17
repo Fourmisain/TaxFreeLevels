@@ -8,10 +8,10 @@ Tax Free Levels "flattens the curve" of the ever-increasing anvil and enchantmen
 More precisely:  
 If you are above level 30, instead of e.g. paying 3 levels, you pay the amount of XP needed to get from level 27 to 30.    
 If the level cost is above 30, you pay the amount of XP needed to get from 0 to that level.
-* for Minecraft 1.16-1.18 using Fabric Loader
+* for Minecraft Fabric 1.16-1.18 and Forge 1.17-1.18
 * required on the server and client
 * (it *does* work server-only, but the level cost won't show up correctly when renaming items)
-* compatible with with Draylar1's Reroll
+* compatible with with Draylar1's [Reroll](https://www.curseforge.com/minecraft/mc-mods/reroll)
 
 ## Comparison
 
@@ -28,9 +28,14 @@ You'd normally lose 8000 of your 12000 XP dragon reward here and there!
 
 This is meant as a partial replacement for user11681's limitless, specifically the "level normalization". No code was taken, only the idea.
 
-## For Mod Devs
+## For (Fabric) Mod Devs
 
-The mod can be compiled against with [JitPack](https://jitpack.io/#Fourmisain/TaxFreeLevels) (using regular `modImplementation`).  
+The mod can be compiled against with [JitPack](https://jitpack.io/#Fourmisain/TaxFreeLevels/loom-SNAPSHOT) using
+
+```
+modImplementation 'com.github.Fourmisain:TaxFreeLevels:loom-SNAPSHOT'
+``` 
+
 The main `TaxFreeLevels` class contains some hopefully useful methods to help mod integration.  
 If you want to disable certain mixins, you can do so by adding a custom field to your `fabric.mod.json` like so:
 
