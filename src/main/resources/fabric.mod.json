@@ -20,14 +20,17 @@
 	],
 	"depends": {
 		"fabricloader": "*",
-		"minecraft": "~1.16.0"
+		"minecraft": ">=1.18.0"
 	},
 	"custom": {
 		"taxfreelevels:options": {
+			"mixin.CharmMixin": true,
 			"mixin.CheapAnvilRenameMixin": true,
+			"mixin.EnchantingInfuserMixin": true,
 			"mixin.FlattenAnvilCostMixin": true,
 			"mixin.FlattenEnchantmentCostMixin": true,
-			"mixin.RerollMixin": true
+			"mixin.RerollMixin": true,
+			"mixin.SpectrumMixin": true
 		}
 	}
 }

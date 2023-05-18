@@ -1,9 +1,9 @@
 package io.github.fourmisain.taxfreelevels.mixin;
 
+import de.dafuqs.spectrum.inventories.BedrockAnvilScreenHandler;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.AnvilScreenHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = AnvilScreenHandler.class, priority = 1500)
-public abstract class FlattenAnvilCostMixin {
+@Mixin(value = BedrockAnvilScreenHandler.class, priority = 1500)
+public abstract class SpectrumMixin {
 	@Unique private PlayerEntity taxfreelevels$player;
 
 	@Inject(method = "onTakeOutput", at = @At("HEAD"))
