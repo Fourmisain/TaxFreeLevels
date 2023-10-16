@@ -19,7 +19,11 @@ public abstract class EnchantingInfuserMixin {
 	private static PlayerEntity taxfreelevels$player;
 
 	@Inject(
-		method = "lambda$clickEnchantButton$5(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+		method = {
+			"lambda$clickEnchantButton$5(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+			"lambda$clickEnchantButton$6(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
+		},
+		require = 1,
 		at = @At("HEAD")
 	)
 	private void taxfreelevels$capturePlayer(ItemStack itemstack, int cost, PlayerEntity player, World level, BlockPos pos, CallbackInfo ci) {
@@ -27,7 +31,11 @@ public abstract class EnchantingInfuserMixin {
 	}
 
 	@ModifyArg(
-		method = "lambda$clickEnchantButton$5(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+		method = {
+			"lambda$clickEnchantButton$5(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+			"lambda$clickEnchantButton$6(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
+		},
+		require = 1,
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/entity/player/PlayerEntity;addExperienceLevels(I)V"
@@ -40,7 +48,11 @@ public abstract class EnchantingInfuserMixin {
 	}
 
 	@Inject(
-		method = "lambda$clickRepairButton$6(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+		method = {
+			"lambda$clickRepairButton$6(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+			"lambda$clickRepairButton$7(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
+		},
+		require = 1,
 		at = @At("HEAD")
 	)
 	private void taxfreelevels$capturePlayer2(PlayerEntity player, int repairCost, ItemStack itemstack, World level, BlockPos pos, CallbackInfo ci) {
@@ -48,7 +60,11 @@ public abstract class EnchantingInfuserMixin {
 	}
 
 	@ModifyArg(
-		method = "lambda$clickRepairButton$6(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+		method = {
+			"lambda$clickRepairButton$6(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+			"lambda$clickRepairButton$7(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
+		},
+		require = 1,
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/entity/player/PlayerEntity;addExperienceLevels(I)V"
