@@ -8,8 +8,5 @@ import net.minecraftforge.fml.common.Mod;
 @Mod(TaxFreeLevels.MOD_ID)
 public class TaxFreeLevelsForge {
 	public TaxFreeLevelsForge() {
-		// Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
-		ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class,
-			() -> new IExtensionPoint.DisplayTest(() -> IExtensionPoint.DisplayTest.IGNORESERVERONLY, (a, b) -> true));
 	}
 }

@@ -13,6 +13,7 @@ authors="Fourmisain"
 description='''
 Flattens anvil and enchantment costs above player level 30 and makes renaming items always cost 1 level.
 '''
+displayTest="IGNORE_SERVER_VERSION"
 
 [[dependencies.taxfreelevels]]
 modId="forge"
