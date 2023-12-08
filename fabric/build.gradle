@@ -31,14 +31,6 @@ dependencies {
 	shadowCommon(project(path: ":fabric1_17", configuration: "transformProductionFabric")) { transitive false }
 }
 
-processResources {
-	inputs.property "version", project.mod_version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.mod_version
-	}
-}
-
 shadowJar {
 	exclude "architectury.common.json"
 
@@ -75,10 +67,5 @@ publishing {
 			artifactId = rootProject.archives_base_name + "-" + project.name
 			from components.java
 		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
 	}
 }

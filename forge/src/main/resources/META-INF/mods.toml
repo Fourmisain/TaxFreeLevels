@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/Fourmisain/TaxFreeLevels/issues"
 
 [[mods]]
 modId="taxfreelevels"
-version="${version}"
+version="${mod_version}"
 displayName="Tax Free Levels"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/tax-free-levels"
 logoFile= "icon.png"

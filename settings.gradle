@@ -11,5 +11,6 @@ include("common")
 include("fabric")
 include("fabric1_17")
 include("forge")
+include("neoforge")
 
 rootProject.name = "TaxFreeLevels"

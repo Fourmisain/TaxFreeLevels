@@ -1,17 +1,14 @@
 {
 	"required": true,
 	"minVersion": "0.8",
-	"package": "io.github.fourmisain.taxfreelevels.mixin",
+	"package": "io.github.fourmisain.taxfreelevels.mixin.neoforge",
 	"compatibilityLevel": "JAVA_${java_version}",
-	"plugin": "io.github.fourmisain.taxfreelevels.MixinConfig",
+	"plugin": "io.github.fourmisain.taxfreelevels.neoforge.MixinConfig",
 	"mixins": [
-		"CharmMixin",
 		"CheapAnvilRenameMixin",
-		"EnchantingInfuserMixin",
 		"FlattenAnvilCostMixin",
 		"FlattenEnchantmentCostMixin",
-		"RerollMixin",
-		"SpectrumMixin"
+		"WaystonesMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

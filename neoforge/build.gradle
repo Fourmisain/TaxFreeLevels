@@ -21,30 +21,28 @@ plugins {
 
 architectury {
 	platformSetupLoomIde()
-	forge()
+	neoForge()
 }
 
-version = rootProject.mod_version + "-forge-" + rootProject.minecraft_version
-
-loom {
-	forge {
-		mixinConfig "taxfreelevels-forge.mixins.json"
-	}
-}
+version = rootProject.mod_version + "-neoforge-" + rootProject.minecraft_version
 
 configurations {
 	common
 	shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
 	compileClasspath.extendsFrom common
 	runtimeClasspath.extendsFrom common
-	developmentForge.extendsFrom common
+	developmentNeoForge.extendsFrom common
+}
+
+repositories {
+	maven { url = "https://maven.neoforged.net/releases/" }
 }
 
 dependencies {
-	forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
+	neoForge "net.neoforged:neoforge:${project.neoforge_version}"
 
 	common(project(path: ":common", configuration: "namedElements")) { transitive false }
-	shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+	shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 }
 
 shadowJar {
@@ -100,7 +98,7 @@ components.java {
 
 publishing {
 	publications {
-		mavenForge(MavenPublication) {
+        mavenNeoForge(MavenPublication) {
 			artifactId = rootProject.archives_base_name + "-" + project.name
 			from components.java
 		}
