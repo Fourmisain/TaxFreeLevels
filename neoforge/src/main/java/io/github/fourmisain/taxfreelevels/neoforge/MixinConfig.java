@@ -2,6 +2,8 @@ package io.github.fourmisain.taxfreelevels.neoforge;
 
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.fml.loading.moddiscovery.ModInfo;
+import org.apache.maven.artifact.versioning.ArtifactVersion;
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -15,12 +17,15 @@ public class MixinConfig implements IMixinConfigPlugin {
 	private String mixinPackage;
 
 	public static boolean isModInstalled(String modId) {
+		return isModInstalled(modId, null);
+	}
+
+	public static boolean isModInstalled(String modId, ArtifactVersion version) {
 		// ModList seems to always be null when shouldApplyMixin is executed
 		// While not ideal, we can check which mods are loading
-		if (FMLLoader.getLoadingModList() != null)
-			for (ModInfo mod : FMLLoader.getLoadingModList().getMods())
-				if (mod.getModId().equals(modId))
-					return true;
+		for (ModInfo mod : FMLLoader.getLoadingModList().getMods())
+			if (mod.getModId().equals(modId) && (version == null || mod.getVersion().compareTo(version) >= 0))
+				return true;
 
 		return false;
 	}
@@ -37,6 +42,13 @@ public class MixinConfig implements IMixinConfigPlugin {
 		// note: Fabric Waystones has the same mod id
 		if (!isModInstalled("waystones"))
 			disabledMixins.add("WaystonesMixin");
+
+		// Apotheosis 7.2.0 added it's own (conflicting) optimal cost implementation
+		if (isModInstalled("apotheosis", new DefaultArtifactVersion("7.2.0"))) {
+			disabledMixins.add("FlattenAnvilCostMixin");
+		} else {
+			disabledMixins.add("EnchantmentUtilsMixin");
+		}
 	}
 
 	@Override

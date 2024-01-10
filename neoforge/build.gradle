@@ -77,6 +77,7 @@ task finalize {
 
 			try (FileSystem fs = FileSystems.newFileSystem(jarFileUri, ['create': 'false'])) {
 				del(fs, "net")
+				del(fs, "dev")
 			}
 		}
 	}

@@ -2,7 +2,6 @@ package io.github.fourmisain.taxfreelevels.forge;
 
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
-import org.apache.logging.log4j.LogManager;
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.objectweb.asm.tree.ClassNode;
@@ -24,15 +23,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 	public static boolean isModInstalled(String modId, ArtifactVersion version) {
 		// ModList seems to always be null when shouldApplyMixin is executed
 		// While not ideal, we can check which mods are loading
-		if (FMLLoader.getLoadingModList() != null) {
-			for (ModInfo mod : FMLLoader.getLoadingModList().getMods()) {
-				LogManager.getLogger("debug").debug("{} {} vs {} -> {}", mod.getModId(), mod.getVersion(), version, version != null && mod.getVersion().compareTo(version) >= 0);
-
-				if (version != null && mod.getVersion().compareTo(version) >= 0
-						&& mod.getModId().equals(modId))
-					return true;
-			}
-		}
+		for (ModInfo mod : FMLLoader.getLoadingModList().getMods())
+			if (mod.getModId().equals(modId) && (version == null || mod.getVersion().compareTo(version) >= 0))
+				return true;
 
 		return false;
 	}
@@ -51,8 +44,11 @@ public class MixinConfig implements IMixinConfigPlugin {
 			disabledMixins.add("WaystonesMixin");
 
 		// Apotheosis 7.2.0 added it's own (conflicting) optimal cost implementation
-		if (isModInstalled("apotheosis", new DefaultArtifactVersion("7.2.0")))
+		if (isModInstalled("apotheosis", new DefaultArtifactVersion("7.2.0"))) {
 			disabledMixins.add("FlattenAnvilCostMixin");
+		} else {
+			disabledMixins.add("EnchantmentUtilsMixin");
+		}
 	}
 
 	@Override
