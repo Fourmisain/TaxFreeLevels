@@ -18,6 +18,7 @@ import java.util.Set;
 
 public class MixinConfig implements IMixinConfigPlugin {
 	private final Set<String> disabledMixins = new HashSet<>();
+	private String mixinPackage;
 
 	public static boolean testVersion(String modId, String versionRange) {
 		try {
@@ -37,6 +38,8 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 	@Override
 	public void onLoad(String mixinPackage) {
+		this.mixinPackage = mixinPackage;
+
 		// check for custom options in other mods
 		for (ModContainer container : FabricLoader.getInstance().getAllMods()) {
 			ModMetadata metadata = container.getMetadata();
@@ -87,7 +90,7 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		String mixinName = mixinClassName.substring(mixinClassName.lastIndexOf(".mixin") + ".mixin".length() + 1);
+		String mixinName = mixinClassName.substring(mixinPackage.length() + 1);
 		return !disabledMixins.contains(mixinName);
 	}
 

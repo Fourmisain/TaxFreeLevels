@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class MixinConfig implements IMixinConfigPlugin {
 	private final Set<String> disabledMixins = new HashSet<>();
+	private String mixinPackage;
 
 	public static boolean isModInstalled(String modId) {
 		// ModList seems to always be null when shouldApplyMixin is executed
@@ -26,6 +27,8 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 	@Override
 	public void onLoad(String mixinPackage) {
+		this.mixinPackage = mixinPackage;
+
 		if (isModInstalled("enchanting_overhauled")) {
 			disabledMixins.add("CheapAnvilRenameMixin");
 			disabledMixins.add("FlattenAnvilCostMixin");
@@ -38,7 +41,7 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		String mixinName = mixinClassName.substring(mixinClassName.lastIndexOf(".mixin.forge") + ".mixin.forge".length() + 1);
+		String mixinName = mixinClassName.substring(mixinPackage.length() + 1);
 		return !disabledMixins.contains(mixinName);
 	}
 
