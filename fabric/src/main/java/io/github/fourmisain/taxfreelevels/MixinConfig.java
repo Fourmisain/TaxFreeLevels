@@ -86,6 +86,13 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!FabricLoader.getInstance().isModLoaded("enchantinginfuser")) {
 			disabledMixins.add("EnchantingInfuserMixin");
 		}
+
+		// Zenith (Apotheosis port) for 1.20 has it's own (conflicting) optimal cost implementation
+		if (FabricLoader.getInstance().isModLoaded("zenith") && testVersion("fakerlib", ">=0.1.0")) {
+			disabledMixins.add("FlattenAnvilCostMixin");
+		} else {
+			disabledMixins.add("EnchantmentUtilsMixin");
+		}
 	}
 
 	@Override
