@@ -40,7 +40,7 @@ dependencies {
 	modCompileOnly "com.github.Draylar:reroll:${project.reroll_version}"
 	modCompileOnly "maven.modrinth:charm:${project.charm_version}"
 	modCompileOnly "maven.modrinth:spectrum:${project.spectrum_version}"
-	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}"
+	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}-Fabric"
 
 	common(project(path: ":common", configuration: "namedElements")) { transitive false }
 	shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }

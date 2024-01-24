@@ -1,4 +1,4 @@
-package io.github.fourmisain.taxfreelevels.mixin;
+package io.github.fourmisain.taxfreelevels.mixin.forge;
 
 import fuzs.enchantinginfuser.world.inventory.InfuserMenu;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;

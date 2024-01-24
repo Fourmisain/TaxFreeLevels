@@ -1,4 +1,4 @@
-package io.github.fourmisain.taxfreelevels.mixin;
+package io.github.fourmisain.taxfreelevels.mixin.neoforge;
 
 import fuzs.enchantinginfuser.world.inventory.InfuserMenu;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
@@ -20,8 +20,6 @@ public abstract class EnchantingInfuserMixin {
 
 	@Inject(
 		method = {
-			"lambda$clickEnchantButton$5(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
-			"lambda$clickEnchantButton$6(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickEnchantButton$7(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickEnchantButton$8(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickEnchantButton$9(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
@@ -35,8 +33,6 @@ public abstract class EnchantingInfuserMixin {
 
 	@ModifyArg(
 		method = {
-			"lambda$clickEnchantButton$5(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
-			"lambda$clickEnchantButton$6(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickEnchantButton$7(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickEnchantButton$8(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickEnchantButton$9(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
@@ -55,8 +51,6 @@ public abstract class EnchantingInfuserMixin {
 
 	@Inject(
 		method = {
-			"lambda$clickRepairButton$6(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
-			"lambda$clickRepairButton$7(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickRepairButton$8(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickRepairButton$9(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickRepairButton$10(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
@@ -70,8 +64,6 @@ public abstract class EnchantingInfuserMixin {
 
 	@ModifyArg(
 		method = {
-			"lambda$clickRepairButton$6(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
-			"lambda$clickRepairButton$7(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickRepairButton$8(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickRepairButton$9(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
 			"lambda$clickRepairButton$10(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"

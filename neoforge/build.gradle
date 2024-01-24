@@ -41,6 +41,8 @@ repositories {
 dependencies {
 	neoForge "net.neoforged:neoforge:${project.neoforge_version}"
 
+	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}-NeoForge"
+
 	common(project(path: ":common", configuration: "namedElements")) { transitive false }
 	shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 }
