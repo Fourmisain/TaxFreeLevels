@@ -1,6 +1,9 @@
 plugins {
 	id "architectury-plugin" version "3.4-SNAPSHOT"
 	id "dev.architectury.loom" version "1.4-SNAPSHOT" apply false
+	id "com.matthewprenger.cursegradle" version "1.4.0" apply false
+	id "com.modrinth.minotaur" version "2.+" apply false
+	id "minepkg-publish" version "latest.release" apply false
 }
 
 architectury {
@@ -60,4 +63,96 @@ subprojects {
 			}
 		}
 	}
+
+	def loader = project.name
+	if (!enabled_platforms.split(',').contains(loader))
+		return
+
+	version = project.mod_version + "-" + loader +  "-" + project.minecraft_version
+
+	def toList = (String s) -> s.split(',').collect{ it.trim() }
+
+	def changesMd = rootProject.file('changes.md').exists() ? rootProject.file('changes.md').getText("UTF-8") : ''
+	def projectGameVersions = toList(property("${loader}_game_version_list".toString()) as String)
+	def capitalizedLoader = loader == 'neoforge' ? 'NeoForge' : loader.capitalize()
+
+	apply plugin: "com.modrinth.minotaur"
+
+	modrinth {
+		def MODRINTH_TOKEN = System.getenv("MODRINTH_TOKEN")
+		if (MODRINTH_TOKEN != null) {
+			token = MODRINTH_TOKEN
+			projectId = project.modrinth_id
+			versionName = project.mod_version + "-" + loader
+			versionNumber = project.mod_version
+			versionType = "release"
+			uploadFile = remapJar
+			changelog = changesMd
+			gameVersions = projectGameVersions
+			loaders = [loader]
+		}
+	}
+
+	apply plugin: "com.matthewprenger.cursegradle"
+
+	curseforge {
+		def CURSEFORGE_TOKEN = System.getenv("CURSEFORGE_TOKEN")
+		if (CURSEFORGE_TOKEN != null) {
+			apiKey = CURSEFORGE_TOKEN
+			project {
+				id = project.curseforge_id
+				releaseType = "release"
+				changelogType = "markdown"
+				changelog = changesMd
+
+				addGameVersion capitalizedLoader
+				projectGameVersions.each{ addGameVersion(it) }
+
+				mainArtifact(remapJar.archiveFile.get().asFile) {
+					displayName = "${project.mod_version} [${capitalizedLoader} ${versionRange(projectGameVersions)}]"
+				}
+				afterEvaluate {
+					uploadTask.dependsOn("build")
+				}
+			}
+			options {
+				forgeGradleIntegration = false
+				javaVersionAutoDetect = false
+			}
+		}
+	}
+
+	if (loader != 'fabric')
+		return
+
+	apply plugin: "minepkg-publish"
+
+	minepkg {
+		def MINEPKG_TOKEN = System.getenv("MINEPKG_TOKEN")
+		if (MINEPKG_TOKEN != null) {
+			apiKey = MINEPKG_TOKEN
+			artifact = remapJar
+			platform = loader
+			name = project.minepkg_id
+			version = project.mod_version + "+" + project.minecraft_version
+			license = "MIT"
+			minecraftVersionRange = project.fabric_game_version_range
+		}
+	}
+}
+
+static String versionRange(List<String> gameVersions) {
+	if (gameVersions.size() == 1)
+		return gameVersions[0]
+
+	def v0 = gameVersions.first()
+	def v1 = gameVersions.last()
+
+	def m0 = v0.split('[.]')[1]
+	def m1 = v1.split('[.]')[1]
+
+	if (m0 == m1)
+		return v1
+
+	return "${v0} - ${v1}"
 }
