@@ -1,5 +1,8 @@
 package io.github.fourmisain.taxfreelevels.forge;
 
+import com.bawnorton.mixinsquared.MixinSquaredBootstrap;
+import com.bawnorton.mixinsquared.api.MixinCanceller;
+import com.bawnorton.mixinsquared.canceller.MixinCancellerRegistrar;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import org.objectweb.asm.tree.ClassNode;
@@ -8,6 +11,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.ServiceLoader;
 import java.util.Set;
 
 public class MixinConfig implements IMixinConfigPlugin {
@@ -26,6 +30,16 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 	@Override
 	public void onLoad(String mixinPackage) {
+		MixinSquaredBootstrap.init();
+		ServiceLoader.load(MixinCanceller.class).forEach(MixinCancellerRegistrar::register);
+
+		// Unique Enchantments Base uses a Redirect which we'll change
+		if (isModInstalled("uniquebase")) {
+			disabledMixins.add("FlattenAnvilCostMixin");
+		} else {
+			disabledMixins.add("UniqueEnchantmentsAnvilMixinMixin");
+		}
+
 		if (isModInstalled("enchanting_overhauled")) {
 			disabledMixins.add("CheapAnvilRenameMixin");
 			disabledMixins.add("FlattenAnvilCostMixin");

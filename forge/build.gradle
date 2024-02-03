@@ -43,6 +43,8 @@ loom {
 dependencies {
 	forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
 
+	shadow(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${rootProject.mixinsquared_version}"))
+
 	common(project(path: ":common", configuration: "namedElements")) { transitive false }
 	shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
@@ -58,7 +60,9 @@ processResources {
 shadowJar {
 	exclude "fabric.mod.json"
 
-	configurations = [project.configurations.shadowCommon]
+	configurations = [project.configurations.shadow, project.configurations.shadowCommon]
+	relocate("com.bawnorton.mixinsquared", "io.github.fourmisain.taxfreelevels.mixinsquared")
+	mergeServiceFiles()
 	classifier "dev-shadow"
 }
 
