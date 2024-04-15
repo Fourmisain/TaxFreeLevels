@@ -43,13 +43,13 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!isModInstalled("waystones"))
 			disabledMixins.add("WaystonesMixin");
 
-		// Enchanting Infuser
 		if (!isModInstalled("enchantinginfuser")) {
 			disabledMixins.add("EnchantingInfuserMixin");
 		}
 
-		// Apotheosis 7.2.0 added it's own (conflicting) optimal cost implementation
-		if (isModInstalled("apotheosis", new DefaultArtifactVersion("7.2.0"))) {
+		// Apotheosis 7.2.0/6.5.0 added its own (conflicting) optimal cost implementation
+		// note: only version between 6.5.0 and 7.2.0 is beta 7.1.0, which nobody should be using anymore
+		if (isModInstalled("apotheosis", new DefaultArtifactVersion("6.5.0"))) {
 			disabledMixins.add("FlattenAnvilCostMixin");
 		} else {
 			disabledMixins.add("EnchantmentUtilsMixin");

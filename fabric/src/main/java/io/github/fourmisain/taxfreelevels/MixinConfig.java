@@ -64,12 +64,10 @@ public class MixinConfig implements IMixinConfigPlugin {
 			}
 		}
 
-		// don't target Reroll if it doesn't exist
 		if (!FabricLoader.getInstance().isModLoaded("reroll")) {
 			disabledMixins.add("RerollMixin");
 		}
 
-		// don't target Charm if it doesn't exist
 		if (!FabricLoader.getInstance().isModLoaded("charm")) {
 			disabledMixins.add("Charm1_17Mixin");
 			disabledMixins.add("CharmMixin");
@@ -77,7 +75,6 @@ public class MixinConfig implements IMixinConfigPlugin {
 			disabledMixins.add(testVersion("minecraft", ">=1.18") ? "Charm1_17Mixin" : "CharmMixin");
 		}
 
-		// don't target Spectrum if it doesn't exist
 		if (!FabricLoader.getInstance().isModLoaded("spectrum")) {
 			disabledMixins.add("SpectrumMixin");
 		}
@@ -87,7 +84,7 @@ public class MixinConfig implements IMixinConfigPlugin {
 			disabledMixins.add("EnchantingInfuserMixin");
 		}
 
-		// Zenith (Apotheosis port) for 1.20 has it's own (conflicting) optimal cost implementation
+		// Zenith (Apotheosis port) for 1.20 has its own (conflicting) optimal cost implementation
 		if (FabricLoader.getInstance().isModLoaded("zenith") && testVersion("fakerlib", ">=0.1.0")) {
 			disabledMixins.add("FlattenAnvilCostMixin");
 		} else {
