@@ -93,6 +93,8 @@ subprojects {
 		}
 	}
 
+	tasks.modrinth.dependsOn("build") // ensure finalizer to delete "header files" runs
+
 	apply plugin: "com.matthewprenger.cursegradle"
 
 	curseforge {
