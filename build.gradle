@@ -15,7 +15,8 @@ subprojects {
 
 	dependencies {
 		minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-		mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
+		if (project.name != 'neoforge')
+			mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
 	}
 }
 
@@ -58,7 +59,7 @@ subprojects {
 		def stringProperties = providers.gradlePropertiesPrefixedBy('').get()
 		stringProperties.each { inputs.property(it.key, it.value) }
 
-		["taxfreelevels-${project.name}.mixins.json", "taxfreelevels-fabric1_17.mixins.json", "fabric.mod.json", "META-INF/mods.toml"].each {
+		["taxfreelevels-${project.name}.mixins.json", "taxfreelevels-fabric1_17.mixins.json", "fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml"].each {
 			filesMatching(it) {
 				expand(stringProperties) {
 					escapeBackslash = true

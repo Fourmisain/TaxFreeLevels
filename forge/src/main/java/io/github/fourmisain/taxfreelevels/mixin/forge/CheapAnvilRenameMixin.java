@@ -26,10 +26,10 @@ public abstract class CheapAnvilRenameMixin {
 			ordinal = 1
 		),
 		locals = LocalCapture.CAPTURE_FAILHARD)
-	public void taxfreelevels$makeRenamingCheap(CallbackInfo ci, ItemStack itemStack, int i, int j, int k) {
-		// k is set to 1 when renaming, i is the total cost without the repair cost j,
+	public void taxfreelevels$makeRenamingCheap(CallbackInfo ci, ItemStack itemStack, int i, long l, int j) {
+		// j is set to 1 when renaming, i is the total cost without the repair cost l,
 		// so this condition means we are only renaming:
-		if (k > 0 && k == i) {
+		if (j > 0 && j == i) {
 			levelCost.set(1);
 		}
 	}

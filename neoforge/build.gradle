@@ -41,6 +41,11 @@ repositories {
 dependencies {
 	neoForge "net.neoforged:neoforge:${project.neoforge_version}"
 
+	mappings loom.layered {
+		mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
+		mappings file('23w13a.tiny') // TODO this is currently not on maven
+	}
+
 	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}-NeoForge"
 
 	common(project(path: ":common", configuration: "namedElements")) { transitive false }
