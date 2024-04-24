@@ -25,7 +25,7 @@ side = "BOTH"
 [[dependencies.taxfreelevels]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.20.2,)"
+versionRange = "${neoforge_game_version_range}"
 ordering = "NONE"
 side = "BOTH"
 

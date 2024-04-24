@@ -25,6 +25,6 @@ side="BOTH"
 [[dependencies.taxfreelevels]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.17,)"
+versionRange="${forge_game_version_range}"
 ordering="NONE"
 side="BOTH"
