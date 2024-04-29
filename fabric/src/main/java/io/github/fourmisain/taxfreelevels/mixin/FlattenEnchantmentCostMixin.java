@@ -1,11 +1,12 @@
 package io.github.fourmisain.taxfreelevels.mixin;
 
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -15,12 +16,9 @@ public abstract class FlattenEnchantmentCostMixin {
 	@Shadow
 	public int experienceLevel;
 
-	@Unique
-	private int taxfreelevels$previousLevel;
-
 	@Inject(method = "applyEnchantmentCosts", at = @At(value = "HEAD"))
-	public void taxfreelevels$rememberExperienceLevel(ItemStack enchantedItem, int experienceLevels, CallbackInfo ci) {
-		taxfreelevels$previousLevel = experienceLevel;
+	public void taxfreelevels$rememberExperienceLevel(ItemStack enchantedItem, int experienceLevels, CallbackInfo ci, @Share("previousLevel") LocalIntRef previousLevel) {
+		previousLevel.set(experienceLevel);
 	}
 
 	@Inject(
@@ -31,12 +29,12 @@ public abstract class FlattenEnchantmentCostMixin {
 			ordinal = 2 // right before this.experienceLevel < 0
 		)
 	)
-	public void taxfreelevels$flattenEnchantmentCost(ItemStack enchantedItem, int experienceLevels, CallbackInfo ci) {
+	public void taxfreelevels$flattenEnchantmentCost(ItemStack enchantedItem, int experienceLevels, CallbackInfo ci, @Share("previousLevel") LocalIntRef previousLevel) {
 		// calculate cost instead of using experienceLevels parameter for compatibility
-		int levelCost = taxfreelevels$previousLevel - experienceLevel;
+		int levelCost = previousLevel.get() - experienceLevel;
 
 		// reset level and apply level cost as XP cost
-		experienceLevel = taxfreelevels$previousLevel;
+		experienceLevel = previousLevel.get();
 		TaxFreeLevels.applyFlattenedXpCost((PlayerEntity) (Object) this, levelCost);
 	}
 }
