@@ -20,8 +20,8 @@
 		"taxfreelevels-fabric1_17.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.14.6",
-		"minecraft": ">=1.17.0"
+		"fabricloader": ">=0.15.10",
+		"minecraft": "${fabric_game_version_range}"
 	},
 	"custom": {
 		"taxfreelevels:options": {
