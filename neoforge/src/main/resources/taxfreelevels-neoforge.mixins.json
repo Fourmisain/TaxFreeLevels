@@ -9,8 +9,7 @@
 		"EnchantingInfuserMixin",
 		"EnchantmentUtilsMixin",
 		"FlattenAnvilCostMixin",
-		"FlattenEnchantmentCostMixin",
-		"WaystonesMixin"
+		"FlattenEnchantmentCostMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
