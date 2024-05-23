@@ -10,6 +10,7 @@
 		"EnchantmentUtilsMixin",
 		"FlattenAnvilCostMixin",
 		"FlattenEnchantmentCostMixin",
+		"Waystones2Mixin",
 		"WaystonesMixin"
 	],
 	"injectors": {

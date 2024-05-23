@@ -12,30 +12,30 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Pseudo
-@Mixin(targets = "net.blay09.mods.waystones.core.PlayerWaystoneManager")
-public abstract class WaystonesMixin {
+@Mixin(targets = "net.blay09.mods.waystones.xp.ExperienceLevelCost")
+public abstract class Waystones2Mixin {
 	@Unique
 	private static PlayerEntity taxfreelevels$player;
 
 	@Inject(
-		method = "applyXpCost(Lnet/minecraft/world/entity/player/Player;I)V",
+		method = "consume(Lnet/minecraft/world/entity/player/Player;)V",
 		at = @At("HEAD"),
 		remap = false
 	)
-	private static void taxfreelevels$capturePlayer(PlayerEntity player, int xpLevelCost, CallbackInfo ci) {
+	private void taxfreelevels$capturePlayer(PlayerEntity player, CallbackInfo ci) {
 		taxfreelevels$player = player;
 	}
 
 	@ModifyArg(
-		method = "applyXpCost(Lnet/minecraft/world/entity/player/Player;I)V",
+		method = "consume(Lnet/minecraft/world/entity/player/Player;)V",
 		at = @At(
 			value = "INVOKE",
-			target = "m_6749_" // PlayerEntity.addExperienceLevels
+			target = "m_6749_"
 		),
 		index = 0,
 		remap = false
 	)
-	private static int taxfreelevels$flattenWaystoneCost(int negativeLevelCost) {
+	private int taxfreelevels$flattenWaystoneCost(int negativeLevelCost) {
 		LogManager.getLogger("debug").info("negativeLevelCost {}", negativeLevelCost);
 		TaxFreeLevels.applyFlattenedXpCost(taxfreelevels$player, -negativeLevelCost);
 		return 0; // we already paid in XP

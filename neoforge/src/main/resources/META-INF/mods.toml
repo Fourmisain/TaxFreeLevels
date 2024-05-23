@@ -18,7 +18,7 @@ displayTest = "IGNORE_SERVER_VERSION"
 [[dependencies.taxfreelevels]]
 modId = "neoforge"
 mandatory = true
-versionRange = "[20.2.84,)"
+versionRange = "[20.2.84-beta,)"
 ordering = "NONE"
 side = "BOTH"
 
