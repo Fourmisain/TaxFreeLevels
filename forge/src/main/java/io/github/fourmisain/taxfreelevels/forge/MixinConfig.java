@@ -23,6 +23,7 @@ public class MixinConfig implements IMixinConfigPlugin {
 	public static ModInfo getModInfo(String modId) {
 		// ModList seems to always be null when shouldApplyMixin is executed
 		// While not ideal, we can check which mods are loading
+		// TODO this might break soon. potentially replaceable by getModFileById and manually parsing out the version...?
 		for (ModInfo mod : FMLLoader.getLoadingModList().getMods()) {
 			if (mod.getModId().equals(modId)) {
 				return mod;
