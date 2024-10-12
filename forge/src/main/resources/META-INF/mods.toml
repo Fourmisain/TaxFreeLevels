@@ -11,7 +11,7 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/tax-free-levels"
 logoFile= "icon.png"
 authors="Fourmisain"
 description='''
-Flattens anvil and enchantment costs above player level 30 and makes renaming items always cost 1 level.
+Flattens anvil and enchantment costs, removes the anvil limit and makes renaming items always cost 1 level.
 '''
 displayTest="IGNORE_SERVER_VERSION"
 
@@ -28,3 +28,10 @@ mandatory=true
 versionRange="${forge_game_version_range}"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.taxfreelevels]]
+modId = "cloth_config"
+mandatory = true
+versionRange = "[15,)"
+ordering = "NONE"
+side = "BOTH"

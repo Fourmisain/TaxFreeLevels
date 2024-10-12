@@ -28,6 +28,7 @@ version = rootProject.mod_version + "-forge-" + rootProject.minecraft_version
 
 loom {
 	forge {
+		mixinConfig "taxfreelevels-common-forge.mixins.json"
 		mixinConfig "taxfreelevels-forge.mixins.json"
 	}
 }
@@ -51,6 +52,11 @@ configurations {
 
 dependencies {
 	forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
+
+	compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${project.mixinextras_version}"))
+	implementation(include("io.github.llamalad7:mixinextras-forge:${project.mixinextras_version}"))
+
+	modApi "me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}"
 
 	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}-Forge"
 

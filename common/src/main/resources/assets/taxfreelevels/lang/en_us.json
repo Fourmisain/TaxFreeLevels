@@ -1,0 +1,7 @@
+{
+  "text.autoconfig.taxfreelevels.title": "Tax Free Levels",
+  "text.autoconfig.taxfreelevels.option.levelBase": "Level Base",
+  "text.autoconfig.taxfreelevels.option.levelBase.@Tooltip": "The player level at which the cost flattening starts.\nThe lower the base, the higher the tax reduction.\n\n0 removes all tax.\n30 is a reasonable base if early game costs shouldn't change.\n\nNote that for the Enchanting Table, the base will\nnever go below the table's level requirement.",
+  "text.autoconfig.taxfreelevels.option.removeAnvilLimit": "Remove Anvil Limit",
+  "text.autoconfig.taxfreelevels.option.removeAnvilLimit.@Tooltip": "Removes the Anvil's cost limit of 40 and the\ncorresponding \"Too Expensive!\" message."
+}
