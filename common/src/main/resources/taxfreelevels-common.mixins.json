@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "package": "io.github.fourmisain.taxfreelevels.mixin",
   "compatibilityLevel": "JAVA_${java_version}",
-  "plugin": "io.github.fourmisain.taxfreelevels.fabric.MixinConfig",
   "mixins": [
     "CheapAnvilRenameMixin",
     "EnchantmentScreenHandlerMixin",
@@ -16,6 +15,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "refmap": "TaxFreeLevels-common-refmap.json"
+  }
 }
