@@ -22,9 +22,8 @@ import net.minecraftforge.network.config.SimpleConfigurationTask;
 @Mod(TaxFreeLevels.MOD_ID)
 @Mod.EventBusSubscriber
 public class TaxFreeLevelsForge {
-	public TaxFreeLevelsForge() {
-		// TODO am i crazy or why can the constructor not take FMLJavaModLoadingContext? it says so in the FMLJavaModLoadingContext.get() docs and in the MDK right there...?
-		FMLJavaModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
+	public TaxFreeLevelsForge(FMLJavaModLoadingContext context) {
+		context.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
 			() -> new ConfigScreenHandler.ConfigScreenFactory(
 				(client, parent) -> AutoConfig.getConfigScreen(TaxFreeLevelsConfig.class, parent).get()));
 	}
