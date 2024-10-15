@@ -13,6 +13,7 @@ If your Enchanting Table has a level requirement of 30, instead of paying 3 leve
 Note: For version 1.3 the XP cost is always calculated as the amount of XP needed to get from level 30-X to 30, having no effect on costs below player level 30. This behavior can be restored in 1.4 by setting the "Level Base" to 30. Version 1.3 also has no option to remove the anvil limit.
 
 * for Minecraft 1.16 and above
+* requires [Cloth Config](https://modrinth.com/mod/cloth-config) and [Fabric API](https://modrinth.com/mod/fabric-api) (since 1.4)
 * required on the server and client
 * (it *does* work server-only, but there's visual issues like the "Too Expensive!" message popping up and the level cost not showing correctly when renaming items.)
 * compatible with Draylar1's [Reroll](https://www.curseforge.com/minecraft/mc-mods/reroll)
