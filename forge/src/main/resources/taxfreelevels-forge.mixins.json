@@ -1,14 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "io.github.fourmisain.taxfreelevels.mixin.forge",
+  "package": "io.github.fourmisain.taxfreelevels.forge.mixin",
   "compatibilityLevel": "JAVA_17",
   "plugin": "io.github.fourmisain.taxfreelevels.forge.MixinConfig",
   "mixins": [
-    "CheapAnvilRenameMixin",
     "EnchantingInfuserMixin",
     "EnchantmentUtilsMixin",
-    "FlattenAnvilCostMixin",
     "FlattenEnchantmentCostMixin"
   ],
   "injectors": {

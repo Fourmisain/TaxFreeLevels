@@ -92,6 +92,10 @@ subprojects {
 			changelog = changesMd
 			gameVersions = projectGameVersions
 			loaders = [loader]
+			dependencies {
+				toList(project.modrinth_dependencies).each{ required.project(it) }
+				if (loader == 'fabric') toList(project.modrinth_fabric_dependencies).each{ required.project(it) }
+			}
 		}
 	}
 
@@ -112,6 +116,10 @@ subprojects {
 				addGameVersion capitalizedLoader
 				projectGameVersions.each{ addGameVersion(it) }
 
+				relations {
+					toList(project.curseforge_dependencies).each{ requiredDependency(it) }
+					if (loader == 'fabric') toList(project.curseforge_fabric_dependencies).each{ requiredDependency(it) }
+				}
 				mainArtifact(remapJar.archiveFile.get().asFile) {
 					displayName = "${project.mod_version} [${capitalizedLoader} ${versionRange(projectGameVersions)}]"
 				}
@@ -141,6 +149,7 @@ subprojects {
 			version = project.mod_version + "+" + project.minecraft_version
 			license = "MIT"
 			minecraftVersionRange = project.fabric_game_version_range
+			toList(project.minepkg_dependencies).each{ require(it) }
 		}
 	}
 }

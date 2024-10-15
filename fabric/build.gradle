@@ -46,14 +46,20 @@ version = rootProject.mod_version + "-fabric-" + rootProject.minecraft_version
 dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+
 	modCompileOnly "maven.modrinth:charm:${project.charm_version}"
 	modCompileOnly "maven.modrinth:spectrum:${project.spectrum_version}"
 	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}-Fabric"
 
 	common(project(path: ':common', configuration: 'namedElements')) { transitive false }
 	shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
-	common(project(path: ':fabric1_17', configuration: 'namedElements')) { transitive false }
-	shadowBundle project(path: ':fabric1_17', configuration: 'transformProductionFabric')
 }
 
 shadowJar {
