@@ -3,7 +3,6 @@ package io.github.fourmisain.taxfreelevels.neoforge.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import net.minecraft.entity.player.PlayerEntity;
-import org.apache.logging.log4j.LogManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +22,6 @@ public abstract class Waystones2Mixin {
 		remap = false
 	)
 	private int taxfreelevels$flattenWaystoneCost(int negativeLevelCost, @Local(argsOnly = true) PlayerEntity player) {
-		LogManager.getLogger("debug").info("negativeLevelCost {}", negativeLevelCost);
 		TaxFreeLevels.applyFlattenedXpCost(player, -negativeLevelCost);
 		return 0; // we already paid in XP
 	}
