@@ -1,21 +1,73 @@
 package io.github.fourmisain.taxfreelevels.forge;
 
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
-import net.minecraftforge.fml.IExtensionPoint;
-import net.minecraftforge.fml.ModList;
+import io.github.fourmisain.taxfreelevels.TaxFreeLevelsConfig;
+import me.shedaniel.autoconfig.AutoConfig;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.network.PacketDistributor;
 
 @Mod(TaxFreeLevels.MOD_ID)
+@Mod.EventBusSubscriber
 public class TaxFreeLevelsForge {
-	private static final String IGNORESERVERONLY = "OHNOES\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31\uD83D\uDE31";
-
 	public TaxFreeLevelsForge() {
-		if (ModList.get().getModContainerById("forge").get().getModInfo().getVersion().compareTo(new DefaultArtifactVersion("41.0.15")) < 0) {
-			// Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
-			ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class,
-				() -> new IExtensionPoint.DisplayTest(() -> IGNORESERVERONLY, (a, b) -> true));
+		ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
+			() -> new ConfigScreenHandler.ConfigScreenFactory(
+				(client, parent) -> AutoConfig.getConfigScreen(TaxFreeLevelsConfig.class, parent).get()));
+	}
+
+	@SubscribeEvent
+	public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+		if (event.getEntity() instanceof ServerPlayerEntity player) {
+			if (TaxFreeLevelsPacketHandler.INSTANCE.isRemotePresent(player.networkHandler.connection)) {
+				TaxFreeLevelsPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), TaxFreeLevelsConfig.LOCAL_CONFIG.get());
+			}
+		}
+	}
+
+	@Mod.EventBusSubscriber(modid = TaxFreeLevels.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+	public static class CommonModEvents {
+		@SubscribeEvent
+		public static void commonSetup(FMLCommonSetupEvent event) {
+			event.enqueueWork(() -> {
+				TaxFreeLevelsConfig.init();
+				TaxFreeLevelsPacketHandler.init();
+			});
+		}
+	}
+
+	@Mod.EventBusSubscriber(modid = TaxFreeLevels.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+	public static class ClientModEvents {
+		@SubscribeEvent
+		public static void clientSetup(FMLClientSetupEvent event) {
+			event.enqueueWork(() -> {
+				// send changed config to connected clients in singleplayer, used for Essential or e4mc
+				TaxFreeLevelsConfig.LOCAL_CONFIG.registerSaveListener((manager, config) -> {
+					// PacketDistributor.ALL would send to vanilla clients as well
+					var client = MinecraftClient.getInstance();
+					if (client.isInSingleplayer()) {
+						var server = client.getServer();
+						if (server != null) {
+							for (var player : server.getPlayerManager().getPlayerList()) {
+								if (TaxFreeLevelsPacketHandler.INSTANCE.isRemotePresent(player.networkHandler.connection)) {
+									TaxFreeLevelsPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), TaxFreeLevelsConfig.LOCAL_CONFIG.get());
+								}
+							}
+						}
+					}
+
+					return ActionResult.PASS;
+				});
+			});
 		}
 	}
 }
