@@ -1,6 +1,7 @@
 package io.github.fourmisain.taxfreelevels;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,8 +9,14 @@ public class TaxFreeLevels {
     public static final String MOD_ID = "taxfreelevels";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
+    public static Identifier id(String path) {
+        return Identifier.of(MOD_ID, path);
+    }
+
     /** For example usage see this mod's fabric.mod.json */
     public static String CUSTOM_OPTIONS_FIELD = "taxfreelevels:options";
+
+    private static final ThreadLocal<Integer> levelRequirement = ThreadLocal.withInitial(() -> -1);
 
     /** The XP needed to get from level 'from' to level 'to' */
     public static int getXpDifference(PlayerEntity player, int from, int to) {
@@ -34,17 +41,39 @@ public class TaxFreeLevels {
          */
         player.experienceProgress += (float) xp / (float) player.getNextLevelExperience();
         player.addExperience(0);
+
+        // assuming addNoScoreExperience() is only called once per pay, we use the opportunity to setup the next pay
+        resetLevelRequirement();
+    }
+
+    public static void resetLevelRequirement() {
+        levelRequirement.remove();
+    }
+
+    public static void setLevelRequirement(int value) {
+        levelRequirement.set(value);
+    }
+
+    public static int getLevelRequirement() {
+        return levelRequirement.get();
     }
 
     /** The "flattened" XP cost */
     public static int getFlattenedXpCost(PlayerEntity player, int levelCost) {
-        // pretend the player is at most level 30
-        int pretendLevel = Math.min(player.experienceLevel, 30);
+        int base;
+        if (getLevelRequirement() >= 0) {
+            base = Math.max(getLevelRequirement(), TaxFreeLevelsConfig.get().levelBase);
+        } else {
+            base = TaxFreeLevelsConfig.get().levelBase;
+        }
+
+        // pretend the player is at most at the given "base" level
+        int pretendLevel = Math.min(player.experienceLevel, base);
 
         // get the XP cost for the given levelCost, e.g. the XP needed from level 27 to 30
         // if the levelCost is bigger than pretendLevel, return the XP needed from 0 to levelCost
         int from = Math.max(pretendLevel - levelCost, 0);
-        return TaxFreeLevels.getXpDifference(player, from, from + levelCost);
+        return getXpDifference(player, from, from + levelCost);
     }
 
     /** Pay the "flattened" XP cost for the given level cost */

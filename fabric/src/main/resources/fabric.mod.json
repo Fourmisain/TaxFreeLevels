@@ -3,7 +3,7 @@
 	"id": "taxfreelevels",
 	"version": "${mod_version}",
 	"name": "Tax Free Levels",
-	"description": "Flattens anvil and enchantment costs above player level 30 and makes renaming items always cost 1 level.",
+	"description": "Flattens anvil and enchantment costs, removes the anvil limit and makes renaming items always cost 1 level.",
 	"authors": [
 		"Fourmisain"
 	],
@@ -15,13 +15,27 @@
 	"license": "MIT",
 	"icon": "assets/taxfreelevels/icon.png",
 	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"io.github.fourmisain.taxfreelevels.fabric.TaxFreeLevelsFabric"
+		],
+		"client": [
+			"io.github.fourmisain.taxfreelevels.fabric.TaxFreeLevelsFabricClient"
+		],
+		"modmenu": [
+			"io.github.fourmisain.taxfreelevels.fabric.ModMenuImpl"
+		]
+	},
 	"mixins": [
+		"taxfreelevels-common-fabric.mixins.json",
 		"taxfreelevels-fabric.mixins.json",
 		"taxfreelevels-fabric1_17.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.10",
-		"minecraft": "${fabric_game_version_range}"
+		"minecraft": "${fabric_game_version_range}",
+		"fabric": "*",
+		"cloth-config": "*"
 	},
 	"custom": {
 		"taxfreelevels:options": {

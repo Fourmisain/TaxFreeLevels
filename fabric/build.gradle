@@ -16,7 +16,7 @@ class DeletingFileVisitor extends SimpleFileVisitor<Path> {
 }
 
 plugins {
-	id "com.github.johnrengelman.shadow" version "8.1.1"
+	id 'com.gradleup.shadow'
 }
 
 architectury {
@@ -25,11 +25,20 @@ architectury {
 }
 
 configurations {
-	common
-	shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+	common {
+		canBeResolved = true
+		canBeConsumed = false
+	}
 	compileClasspath.extendsFrom common
 	runtimeClasspath.extendsFrom common
 	developmentFabric.extendsFrom common
+
+	// Files in this configuration will be bundled into your mod using the Shadow plugin.
+	// Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
+	shadowBundle {
+		canBeResolved = true
+		canBeConsumed = false
+	}
 }
 
 version = rootProject.mod_version + "-fabric-" + rootProject.minecraft_version
@@ -37,33 +46,31 @@ version = rootProject.mod_version + "-fabric-" + rootProject.minecraft_version
 dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
-	modCompileOnly "com.github.Draylar:reroll:${project.reroll_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+
 	modCompileOnly "maven.modrinth:charm:${project.charm_version}"
 	modCompileOnly "maven.modrinth:spectrum:${project.spectrum_version}"
 	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}-Fabric"
 
-	common(project(path: ":common", configuration: "namedElements")) { transitive false }
-	shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+	common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+	shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 	common(project(path: ":fabric1_17", configuration: "namedElements")) { transitive false }
-	shadowCommon(project(path: ":fabric1_17", configuration: "transformProductionFabric")) { transitive false }
+	shadowBundle(project(path: ":fabric1_17", configuration: "transformProductionFabric"))
 }
 
 shadowJar {
-	exclude "architectury.common.json"
-
-	configurations = [project.configurations.shadowCommon]
-	archiveClassifier = "dev-shadow"
+	configurations = [project.configurations.shadowBundle]
+	archiveClassifier = 'dev-shadow'
 }
 
 remapJar {
-	injectAccessWidener = true
 	input.set shadowJar.archiveFile
-	dependsOn shadowJar
-	archiveClassifier = null
-}
-
-jar {
-	archiveClassifier = "dev"
 }
 
 task finalize {
@@ -80,6 +87,7 @@ task finalize {
 
 			try (FileSystem fs = FileSystems.newFileSystem(jarFileUri, ['create': 'false'])) {
 				del(fs, "dev")
+				del(fs, "draylar")
 			}
 		}
 	}
@@ -91,12 +99,6 @@ sourcesJar {
 	def commonSources = project(":common").sourcesJar
 	dependsOn commonSources
 	from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-	withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-		skip()
-	}
 }
 
 publishing {
