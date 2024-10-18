@@ -1,6 +1,7 @@
 plugins {
 	id "architectury-plugin" version "3.4-SNAPSHOT"
 	id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
+	id "com.gradleup.shadow" version "8.3.0" apply false
 	id "com.matthewprenger.cursegradle" version "1.4.0" apply false
 	id "com.modrinth.minotaur" version "2.+" apply false
 	id "minepkg-publish" version "latest.release" apply false
@@ -10,22 +11,14 @@ architectury {
 	minecraft = rootProject.minecraft_version
 }
 
-subprojects {
-	apply plugin: "dev.architectury.loom"
-
-	dependencies {
-		minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-		mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
-	}
+allprojects {
+	group = rootProject.maven_group
 }
 
-allprojects {
-	apply plugin: "java"
-	apply plugin: "architectury-plugin"
-	apply plugin: "maven-publish"
-
-	// version = rootProject.mod_version + rootProject.minecraft_version
-	group = rootProject.maven_group
+subprojects {
+	apply plugin: 'dev.architectury.loom'
+	apply plugin: 'architectury-plugin'
+	apply plugin: 'maven-publish'
 
 	base {
 		archivesName = project.archives_base_name
@@ -41,24 +34,27 @@ allprojects {
 				includeGroup "maven.modrinth"
 			}
 		}
-		maven { url "https://jitpack.io" }
+	}
+
+	dependencies {
+		minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+		mappings "net.fabricmc:yarn:$rootProject.yarn_mappings:v2"
+	}
+
+	java {
+		withSourcesJar()
+		sourceCompatibility = targetCompatibility = JavaVersion.toVersion(project.java_version as Integer)
 	}
 
 	tasks.withType(JavaCompile).configureEach {
 		it.options.release = project.java_version as Integer
 	}
 
-	java {
-		withSourcesJar()
-	}
-}
-
-subprojects {
 	processResources {
 		def stringProperties = providers.gradlePropertiesPrefixedBy('').get()
 		stringProperties.each { inputs.property(it.key, it.value) }
 
-		["taxfreelevels-${project.name}.mixins.json", "taxfreelevels-fabric1_17.mixins.json", "fabric.mod.json", "META-INF/mods.toml"].each {
+		["*.mixins.json", "*.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml"].each {
 			filesMatching(it) {
 				expand(stringProperties) {
 					escapeBackslash = true
@@ -93,6 +89,10 @@ subprojects {
 			changelog = changesMd
 			gameVersions = projectGameVersions
 			loaders = [loader]
+			dependencies {
+				toList(project.modrinth_dependencies).each{ required.project(it) }
+				if (loader == 'fabric') toList(project.modrinth_fabric_dependencies).each{ required.project(it) }
+			}
 		}
 	}
 
@@ -113,6 +113,10 @@ subprojects {
 				addGameVersion capitalizedLoader
 				projectGameVersions.each{ addGameVersion(it) }
 
+				relations {
+					toList(project.curseforge_dependencies).each{ requiredDependency(it) }
+					if (loader == 'fabric') toList(project.curseforge_fabric_dependencies).each{ requiredDependency(it) }
+				}
 				mainArtifact(remapJar.archiveFile.get().asFile) {
 					displayName = "${project.mod_version} [${capitalizedLoader} ${versionRange(projectGameVersions)}]"
 				}
@@ -142,6 +146,7 @@ subprojects {
 			version = project.mod_version + "+" + project.minecraft_version
 			license = "MIT"
 			minecraftVersionRange = project.fabric_game_version_range
+			toList(project.minepkg_dependencies).each{ require(it) }
 		}
 	}
 }

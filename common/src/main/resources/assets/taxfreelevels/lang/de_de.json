@@ -1,0 +1,6 @@
+{
+  "text.autoconfig.taxfreelevels.option.levelBase": "Level-Basis",
+  "text.autoconfig.taxfreelevels.option.levelBase.@Tooltip": "Das Spielerlevel ab dem die Kosten abflachen.\nJe niedriger die Basis, umso höher die Steuersenkung.\n\n0 entfernt alle Steuern.\n30 ist eine vernünftige Basis wenn die Earlygame-Kosten sich nicht ändern sollen.\n\nIm Fall des Zaubertisches ist die Basis immer mindestens\nso groß wie die Levelvorraussetzung des Tisches.",
+  "text.autoconfig.taxfreelevels.option.removeAnvilLimit": "Entferne Ambossbeschränkung",
+  "text.autoconfig.taxfreelevels.option.removeAnvilLimit.@Tooltip": "Entfernt das Amboss-Kostenlimit von 40 und\ndie entsprechend \"Zu teuer!\"-Nachricht."
+}
