@@ -72,6 +72,10 @@ public class MixinConfig implements IMixinConfigPlugin {
 		} else {
 			disabledMixins.add("EnchantmentUtilsMixin");
 		}
+
+		if (!isModInstalled("tetra")) {
+			disabledMixins.add("TetraMixin");
+		}
 	}
 
 	@Override
