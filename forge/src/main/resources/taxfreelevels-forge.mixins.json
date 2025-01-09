@@ -8,6 +8,7 @@
     "EnchantingInfuserMixin",
     "EnchantmentUtilsMixin",
     "FlattenEnchantmentCostMixin",
+    "TetraMixin",
     "Waystones2Mixin",
     "WaystonesMixin"
   ],
