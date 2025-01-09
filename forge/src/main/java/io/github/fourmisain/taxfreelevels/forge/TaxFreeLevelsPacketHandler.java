@@ -8,14 +8,19 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 import static io.github.fourmisain.taxfreelevels.TaxFreeLevelsClient.handleReceivedServerConfig;
+import static net.minecraftforge.network.NetworkRegistry.acceptMissingOr;
 
 public class TaxFreeLevelsPacketHandler {
 	private static final String PROTOCOL_VERSION = "1";
 	public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
 		ServerConfigPayload.ID,
 		() -> PROTOCOL_VERSION,
-		PROTOCOL_VERSION::equals,
-		PROTOCOL_VERSION::equals
+		version -> {
+			// don't allow client to join server that does not have the mod
+			if (acceptMissingOr(v -> false).test(version)) return false;
+			return version.equals(PROTOCOL_VERSION);
+		},
+		acceptMissingOr(PROTOCOL_VERSION)
 	);
 
 	public static void init() {
