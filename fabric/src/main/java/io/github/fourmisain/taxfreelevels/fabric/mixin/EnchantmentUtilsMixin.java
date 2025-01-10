@@ -12,7 +12,7 @@ import static io.github.fourmisain.taxfreelevels.TaxFreeLevels.getFlattenedXpCos
 @Mixin(EnchantmentUtils.class)
 public abstract class EnchantmentUtilsMixin {
 	/**
-	 * Replaces FakerLib's (and therefore Zenith's) "optimal cost" calculation by turning the XP cost back
+	 * @reason Replaces FakerLib's (and therefore Zenith's) "optimal cost" calculation by turning the XP cost back
 	 * into a level cost and using Tax Free Level's calculation from there.
 	 * @author Fourmisain
 	 */
