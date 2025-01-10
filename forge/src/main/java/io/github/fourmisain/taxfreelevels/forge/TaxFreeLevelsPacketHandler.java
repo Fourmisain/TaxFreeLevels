@@ -13,7 +13,7 @@ public class TaxFreeLevelsPacketHandler {
 	public static final ServerPlayerConfigurationTask.Key KEY = new ServerPlayerConfigurationTask.Key(ServerConfigPayload.ID.toString());
 	public static final SimpleChannel INSTANCE = ChannelBuilder
 		.named(KEY.id())
-		.optional()
+		.optionalClient()
 		.simpleChannel()
 			.messageBuilder(TaxFreeLevelsConfig.class)
 			.encoder((config, buf) -> ServerConfigPayload.write(buf, config))
