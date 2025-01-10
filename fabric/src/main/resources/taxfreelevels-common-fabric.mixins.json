@@ -9,6 +9,7 @@
     "EnchantmentScreenHandlerMixin",
     "FlattenAnvilCostMixin",
     "FlattenEnchantmentCostMixin",
+    "FlattenEnchantmentCostPreMixin",
     "RemoveAnvilLimitMixin"
   ],
   "injectors": {
