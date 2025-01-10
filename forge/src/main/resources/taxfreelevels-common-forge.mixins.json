@@ -8,6 +8,7 @@
     "CheapAnvilRenameMixin",
     "EnchantmentScreenHandlerMixin",
     "FlattenAnvilCostMixin",
+    "FlattenEnchantmentCostPreMixin",
     "RemoveAnvilLimitMixin"
   ],
   "injectors": {
