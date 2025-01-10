@@ -60,7 +60,7 @@ dependencies {
 
 	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}-Forge"
 
-	common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+	common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
 	shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 }
 
