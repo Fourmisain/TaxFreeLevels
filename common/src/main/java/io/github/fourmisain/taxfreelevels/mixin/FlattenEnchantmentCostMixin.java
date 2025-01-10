@@ -16,11 +16,6 @@ public abstract class FlattenEnchantmentCostMixin {
 	@Shadow
 	public int experienceLevel;
 
-	@Inject(method = "applyEnchantmentCosts", at = @At(value = "HEAD"))
-	public void taxfreelevels$rememberExperienceLevel(ItemStack enchantedItem, int experienceLevels, CallbackInfo ci, @Share("previousLevel") LocalIntRef previousLevel) {
-		previousLevel.set(experienceLevel);
-	}
-
 	@Inject(
 		method = "applyEnchantmentCosts",
 		at = @At(
@@ -29,7 +24,7 @@ public abstract class FlattenEnchantmentCostMixin {
 			ordinal = 2 // right before this.experienceLevel < 0
 		)
 	)
-	public void taxfreelevels$flattenEnchantmentCost(ItemStack enchantedItem, int experienceLevels, CallbackInfo ci, @Share("previousLevel") LocalIntRef previousLevel) {
+	public void taxfreelevels$flattenEnchantmentCost(ItemStack enchantedItem, int experienceLevels, CallbackInfo ci, @Share(value = "previousLevel", namespace = TaxFreeLevels.MOD_ID) LocalIntRef previousLevel) {
 		// calculate cost instead of using experienceLevels parameter for compatibility
 		int levelCost = previousLevel.get() - experienceLevel;
 
