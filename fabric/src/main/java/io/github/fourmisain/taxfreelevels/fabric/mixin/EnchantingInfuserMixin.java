@@ -12,13 +12,9 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class EnchantingInfuserMixin {
 	@ModifyArg(
 		method = {
-			"lambda$clickRepairButton$6(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
-			"lambda$clickRepairButton$7(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
-			"lambda$clickRepairButton$8(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
-			"lambda$clickRepairButton$9(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
-			"lambda$clickRepairButton$10(Lnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
+			"processEnchantingCost",
+			"lambda$clickRepairButton$2(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
 		},
-		require = 1,
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/entity/player/PlayerEntity;addExperienceLevels(I)V"

@@ -76,6 +76,10 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!isModInstalled("tetra")) {
 			disabledMixins.add("TetraMixin");
 		}
+
+		if (!isModInstalled("disenchanting_table")) {
+			disabledMixins.add("DisenchantingTableBlockEntityMixin");
+		}
 	}
 
 	@Override

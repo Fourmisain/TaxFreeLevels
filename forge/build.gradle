@@ -59,6 +59,7 @@ dependencies {
 	modApi "me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}"
 
 	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}-Forge"
+	modCompileOnly "maven.modrinth:dis-enchanting-table:${project.dis_enchanting_table_version}"
 
 	common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
 	shadowBundle project(path: ':common', configuration: 'transformProductionForge')
