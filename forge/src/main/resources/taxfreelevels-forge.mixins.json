@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_${java_version}",
   "plugin": "io.github.fourmisain.taxfreelevels.forge.MixinConfig",
   "mixins": [
-    "EnchantingInfuserMixin",
     "EnchantmentUtilsMixin",
     "FlattenEnchantmentCostMixin"
   ],
