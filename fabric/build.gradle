@@ -56,7 +56,7 @@ dependencies {
 
 	modCompileOnly "maven.modrinth:charm:${project.charm_version}"
 	modCompileOnly "maven.modrinth:spectrum:${project.spectrum_version}"
-	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}-Fabric"
+	modCompileOnly "maven.modrinth:dis-enchanting-table:${project.dis_enchanting_table_version}"
 
 	common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
 	shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
