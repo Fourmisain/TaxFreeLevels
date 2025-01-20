@@ -1,20 +1,18 @@
 package io.github.fourmisain.taxfreelevels.fabric.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import fuzs.enchantinginfuser.world.inventory.InfuserMenu;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(InfuserMenu.class)
+@Pseudo
+@Mixin(targets = "fuzs.enchantinginfuser.world.inventory.InfuserMenu")
 public abstract class EnchantingInfuserMixin {
 	@ModifyArg(
-		method = {
-			"processEnchantingCost",
-			"lambda$clickRepairButton$2(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
-		},
+		method = "*",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/entity/player/PlayerEntity;addExperienceLevels(I)V"
