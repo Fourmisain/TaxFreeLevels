@@ -71,6 +71,10 @@ public class MixinConfig implements IMixinConfigPlugin {
 		} else {
 			disabledMixins.add("EnchantmentUtilsMixin");
 		}
+
+		if (!isModInstalled("disenchanting_table")) {
+			disabledMixins.add("DisenchantingTableBlockEntityMixin");
+		}
 	}
 
 	@Override

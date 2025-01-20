@@ -5,6 +5,7 @@
 	"compatibilityLevel": "JAVA_${java_version}",
 	"plugin": "io.github.fourmisain.taxfreelevels.neoforge.MixinConfig",
 	"mixins": [
+		"DisenchantingTableBlockEntityMixin",
 		"EnchantingInfuserMixin",
 		"EnchantmentUtilsMixin",
 		"FlattenEnchantmentCostMixin",
