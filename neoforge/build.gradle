@@ -52,8 +52,6 @@ dependencies {
 
 	modApi "me.shedaniel.cloth:cloth-config-neoforge:${project.cloth_config_version}"
 
-	modCompileOnly "maven.modrinth:enchanting-infuser:${project.enchanting_infuser_version}-NeoForge"
-
 	common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
 	shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 }
