@@ -17,6 +17,7 @@ public abstract class CheapAnvilRenameMixin {
 	/**
 	 * Make item renaming always cost 1 level
 	 * This should inject after levelCost.set(j + i) and levelCost.set(39)
+	 * Note: in 1.20.5+ the repair cost is a long, but in this version it is an int which we need to skip over
 	 */
 	@Inject(method = "updateResult",
 		at = @At(
@@ -25,7 +26,7 @@ public abstract class CheapAnvilRenameMixin {
 			ordinal = 1
 		)
 	)
-	public void taxfreelevels$makeRenamingCheap(CallbackInfo ci, @Local(ordinal = 0) int i, @Local(ordinal = 1) int j) {
+	public void taxfreelevels$makeRenamingCheap(CallbackInfo ci, @Local(ordinal = 0) int i, @Local(ordinal = 2) int j) {
 		// j is set to 1 when renaming, i is the total cost without the repair cost l,
 		// so this condition means we are only renaming:
 		if (j > 0 && j == i) {
