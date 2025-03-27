@@ -20,6 +20,15 @@ subprojects {
 	apply plugin: 'architectury-plugin'
 	apply plugin: 'maven-publish'
 
+	loom {
+		runs {
+			client {
+				vmArgs "-Dmixin.debug.export=true"
+				programArgs "--username", "Test"
+			}
+		}
+	}
+
 	base {
 		archivesName = project.archives_base_name
 	}

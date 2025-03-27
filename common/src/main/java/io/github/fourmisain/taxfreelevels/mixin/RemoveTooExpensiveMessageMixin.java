@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(AnvilScreen.class)
 public abstract class RemoveTooExpensiveMessageMixin {
 	// mods may ModifyConstant the level 40 limit, so for compatibility we change the creativeMode field instead
-	@ModifyExpressionValue(method = "drawForeground", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z", ordinal = 0))
+	@ModifyExpressionValue(method = "drawForeground", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isInCreativeMode()Z", ordinal = 0))
 	public boolean taxfreelevels$removeAnvilLimit(boolean original) {
 		return TaxFreeLevelsConfig.get().removeAnvilLimit ? true : original;
 	}
