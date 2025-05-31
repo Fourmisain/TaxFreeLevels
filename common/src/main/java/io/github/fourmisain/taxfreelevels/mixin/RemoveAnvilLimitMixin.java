@@ -12,13 +12,17 @@ import org.spongepowered.asm.mixin.injection.Slice;
 public abstract class RemoveAnvilLimitMixin {
 	// mods may ModifyConstant the level 40 limit, so for compatibility we change isInCreativeMode() instead
 	@ModifyExpressionValue(
-		method = "updateResult",
+		method =  {
+			"updateResult",
+			"createResultInternal" // NeoForge >= 21.5.73-beta
+		},
 		slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/screen/Property;get()I", ordinal = 0)), // levelCost.get()
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/entity/player/PlayerEntity;isInCreativeMode()Z",
 			ordinal = 0
-		)
+		),
+		require = 1
 	)
 	public boolean taxfreelevels$removeAnvilLimit(boolean original) {
 		return TaxFreeLevelsConfig.get().removeAnvilLimit ? true : original;

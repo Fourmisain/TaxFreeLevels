@@ -18,12 +18,16 @@ public abstract class CheapAnvilRenameMixin {
 	 * Make item renaming always cost 1 level
 	 * This should inject after levelCost.set(j + i) and levelCost.set(39)
 	 */
-	@Inject(method = "updateResult",
+	@Inject(method = {
+			"updateResult",
+			"createResultInternal" // NeoForge >= 21.5.73-beta
+		},
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/screen/Property;get()I",
 			ordinal = 1
-		)
+		),
+		require = 1
 	)
 	public void taxfreelevels$makeRenamingCheap(CallbackInfo ci, @Local(ordinal = 0) int i, @Local(ordinal = 1) int j) {
 		// j is set to 1 when renaming, i is the total cost without the repair cost l,
