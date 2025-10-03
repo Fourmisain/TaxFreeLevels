@@ -92,21 +92,18 @@ subprojects {
 	apply plugin: "com.modrinth.minotaur"
 
 	modrinth {
-		def MODRINTH_TOKEN = System.getenv("MODRINTH_TOKEN")
-		if (MODRINTH_TOKEN != null) {
-			token = MODRINTH_TOKEN
-			projectId = project.modrinth_id
-			versionName = project.mod_version + "-" + loader
-			versionNumber = project.mod_version
-			versionType = "release"
-			uploadFile = remapJar
-			changelog = changesMd
-			gameVersions = projectGameVersions
-			loaders = [loader]
-			dependencies {
-				toList(project.modrinth_dependencies).each{ required.project(it) }
-				if (loader == 'fabric') toList(project.modrinth_fabric_dependencies).each{ required.project(it) }
-			}
+		token = System.getenv("MODRINTH_TOKEN")
+		projectId = project.modrinth_id
+		versionName = project.mod_version + "-" + loader
+		versionNumber = project.mod_version
+		versionType = "release"
+		uploadFile = remapJar
+		changelog = changesMd
+		gameVersions = projectGameVersions
+		loaders = [loader]
+		dependencies {
+			toList(project.modrinth_dependencies).each{ required.project(it) }
+			if (loader == 'fabric') toList(project.modrinth_fabric_dependencies).each{ required.project(it) }
 		}
 	}
 
@@ -115,33 +112,34 @@ subprojects {
 	apply plugin: "com.matthewprenger.cursegradle"
 
 	curseforge {
-		def CURSEFORGE_TOKEN = System.getenv("CURSEFORGE_TOKEN")
-		if (CURSEFORGE_TOKEN != null) {
-			apiKey = CURSEFORGE_TOKEN
-			project {
-				id = project.curseforge_id
-				releaseType = "release"
-				changelogType = "markdown"
-				changelog = changesMd
+		def token = System.getenv("CURSEFORGE_TOKEN")
+		if (token != null) {
+			apiKey = token
+		}
 
-				addGameVersion capitalizedLoader
-				projectGameVersions.each{ addGameVersion(it) }
+		project {
+			id = project.curseforge_id
+			releaseType = "release"
+			changelogType = "markdown"
+			changelog = changesMd
 
-				relations {
-					toList(project.curseforge_dependencies).each{ requiredDependency(it) }
-					if (loader == 'fabric') toList(project.curseforge_fabric_dependencies).each{ requiredDependency(it) }
-				}
-				mainArtifact(remapJar.archiveFile.get().asFile) {
-					displayName = "${project.mod_version} [${capitalizedLoader} ${versionRange(projectGameVersions)}]"
-				}
-				afterEvaluate {
-					uploadTask.dependsOn("build")
-				}
+			addGameVersion capitalizedLoader
+			projectGameVersions.each{ addGameVersion(it) }
+
+			relations {
+				toList(project.curseforge_dependencies).each{ requiredDependency(it) }
+				if (loader == 'fabric') toList(project.curseforge_fabric_dependencies).each{ requiredDependency(it) }
 			}
-			options {
-				forgeGradleIntegration = false
-				javaVersionAutoDetect = false
+			mainArtifact(remapJar.archiveFile.get().asFile) {
+				displayName = "${project.mod_version} [${capitalizedLoader} ${versionRange(projectGameVersions)}]"
 			}
+			afterEvaluate {
+				uploadTask.dependsOn("build")
+			}
+		}
+		options {
+			forgeGradleIntegration = false
+			javaVersionAutoDetect = false
 		}
 	}
 
@@ -151,17 +149,14 @@ subprojects {
 	apply plugin: "minepkg-publish"
 
 	minepkg {
-		def MINEPKG_TOKEN = System.getenv("MINEPKG_TOKEN")
-		if (MINEPKG_TOKEN != null) {
-			apiKey = MINEPKG_TOKEN
-			artifact = remapJar
-			platform = loader
-			name = project.minepkg_id
-			version = project.mod_version + "+" + project.minecraft_version
-			license = "MIT"
-			minecraftVersionRange = project.fabric_game_version_range
-			toList(project.minepkg_dependencies).each{ require(it) }
-		}
+		apiKey = System.getenv("MINEPKG_TOKEN")
+		artifact = remapJar
+		platform = loader
+		name = project.minepkg_id
+		version = project.mod_version + "+" + project.minecraft_version
+		license = "MIT"
+		minecraftVersionRange = project.fabric_game_version_range
+		toList(project.minepkg_dependencies).each{ require(it) }
 	}
 }
 
