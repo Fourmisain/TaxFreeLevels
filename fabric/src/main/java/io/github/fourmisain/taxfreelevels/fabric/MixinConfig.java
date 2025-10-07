@@ -84,7 +84,8 @@ public class MixinConfig implements IMixinConfigPlugin {
 			disabledMixins.add("SpectrumLegacyMixin");
 			disabledMixins.add("SpectrumMixin");
 		} else {
-			disabledMixins.add(testVersion("spectrum", ">=1.7.9") ? "SpectrumLegacyMixin" : "SpectrumMixin");
+			boolean isLegacy = testVersion("spectrum", "<1.7.9") || testVersion("minecraft", "1.19.2");
+			disabledMixins.add(isLegacy ? "SpectrumMixin" : "SpectrumLegacyMixin");
 		}
 
 		if (!isLoaded("enchantinginfuser")) {
