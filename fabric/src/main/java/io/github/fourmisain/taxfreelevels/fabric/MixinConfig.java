@@ -102,6 +102,10 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!isLoaded("disenchanting_table")) {
 			disabledMixins.add("DisenchantingTableBlockEntityMixin");
 		}
+
+		if (!isLoaded("disenchantingfabric")) {
+			disabledMixins.add("DisenchantingFabricMixin");
+		}
 	}
 
 	@Override
