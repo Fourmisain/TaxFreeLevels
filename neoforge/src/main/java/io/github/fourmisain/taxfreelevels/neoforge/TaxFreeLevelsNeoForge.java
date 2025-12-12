@@ -3,7 +3,7 @@ package io.github.fourmisain.taxfreelevels.neoforge;
 import io.github.fourmisain.taxfreelevels.ServerConfigPayload;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevelsConfig;
-import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.AutoConfigClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.ActionResult;
 import net.neoforged.api.distmarker.Dist;
@@ -65,7 +65,7 @@ public class TaxFreeLevelsNeoForge {
 	public static class ClientModEvents {
 		public ClientModEvents() {
 			ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () ->
-				(container, parent) -> AutoConfig.getConfigScreen(TaxFreeLevelsConfig.class, parent).get());
+				(container, parent) -> AutoConfigClient.getConfigScreen(TaxFreeLevelsConfig.class, parent).get());
 		}
 
 		@SubscribeEvent
