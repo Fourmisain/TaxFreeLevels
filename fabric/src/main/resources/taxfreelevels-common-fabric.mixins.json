@@ -10,7 +10,8 @@
     "FlattenAnvilCostMixin",
     "FlattenEnchantmentCostMixin",
     "FlattenEnchantmentCostPreMixin",
-    "RemoveAnvilLimitMixin"
+    "RemoveAnvilLimitMixin",
+    "ServerPlayerEntityMixin"
   ],
   "client": [
     "RemoveTooExpensiveMessageMixin"
@@ -18,5 +19,8 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "refmap": "TaxFreeLevels-common-refmap.json"
+  "refmap": "TaxFreeLevels-common-refmap.json",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  }
 }

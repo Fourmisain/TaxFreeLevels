@@ -17,6 +17,7 @@ public class TaxFreeLevels {
     public static String CUSTOM_OPTIONS_FIELD = "taxfreelevels:options";
 
     private static final ThreadLocal<Integer> levelRequirement = ThreadLocal.withInitial(() -> -1);
+    public static final ThreadLocal<Boolean> forceRecalculateAndSync = ThreadLocal.withInitial(() -> false);
 
     /** The XP needed to get from level 'from' to level 'to' */
     public static int getXpDifference(PlayerEntity player, int from, int to) {
@@ -40,7 +41,7 @@ public class TaxFreeLevels {
          * which used for the XP scoreboard criterion, neither of which we wanna touch
          */
         player.experienceProgress += (float) xp / (float) player.getNextLevelExperience();
-        player.addExperience(0);
+        recalculateAndSynchronizeExperience(player);
 
         // assuming addNoScoreExperience() is only called once per pay, we use the opportunity to setup the next pay
         resetLevelRequirement();
@@ -85,5 +86,11 @@ public class TaxFreeLevels {
          * it's not much to worry about, but it's the reason why we also pay in XP if the player level is below 30
          */
         addNoScoreExperience(player, -getFlattenedXpCost(player, levelCost));
+    }
+
+    public static void recalculateAndSynchronizeExperience(PlayerEntity player) {
+        forceRecalculateAndSync.set(true);
+        player.addExperience(0);
+        forceRecalculateAndSync.remove();
     }
 }
