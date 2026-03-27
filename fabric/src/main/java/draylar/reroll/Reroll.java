@@ -1,9 +1,9 @@
 package draylar.reroll;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 public class Reroll {
-	public static void reroll(PlayerEntity player) {
-		player.addExperienceLevels(-3);
+	public static void reroll(Player player) {
+		player.giveExperienceLevels(-3);
 	}
 }

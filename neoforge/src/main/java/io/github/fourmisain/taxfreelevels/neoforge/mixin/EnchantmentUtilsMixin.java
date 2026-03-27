@@ -1,7 +1,7 @@
 package io.github.fourmisain.taxfreelevels.neoforge.mixin;
 
 import dev.shadowsoffire.placebo.util.EnchantmentUtils;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -17,7 +17,7 @@ public abstract class EnchantmentUtilsMixin {
 	 * @author Fourmisain
 	 */
 	@Overwrite
-	public static boolean chargeExperience(PlayerEntity player, int xpCost) {
+	public static boolean chargeExperience(Player player, int xpCost) {
 		if (xpCost < 0) return false; // consistent with original chargeExperience
 
 		// getTotalExperienceForLevel(l) == getXpDifference(player, 0, l), assuming player.getNextLevelExperience() hasn't changed

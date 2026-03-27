@@ -1,8 +1,8 @@
 package io.github.fourmisain.taxfreelevels.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.screen.Property;
+import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.inventory.DataSlot;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -10,21 +10,21 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = AnvilScreenHandler.class)
+@Mixin(value = AnvilMenu.class)
 public abstract class CheapAnvilRenameMixin {
-	@Shadow @Final private Property levelCost;
+	@Shadow @Final private DataSlot cost;
 
 	/**
 	 * Make item renaming always cost 1 level
 	 * This should inject after levelCost.set(j + i) and levelCost.set(39)
 	 */
 	@Inject(method = {
-			"updateResult",
+			"createResult",
 			"createResultInternal" // NeoForge >= 21.5.73-beta
 		},
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/screen/Property;get()I",
+			target = "Lnet/minecraft/world/inventory/DataSlot;get()I",
 			ordinal = 1
 		),
 		require = 1
@@ -33,7 +33,7 @@ public abstract class CheapAnvilRenameMixin {
 		// j is set to 1 when renaming, i is the total cost without the repair cost l,
 		// so this condition means we are only renaming:
 		if (j > 0 && j == i) {
-			levelCost.set(1);
+			cost.set(1);
 		}
 	}
 }

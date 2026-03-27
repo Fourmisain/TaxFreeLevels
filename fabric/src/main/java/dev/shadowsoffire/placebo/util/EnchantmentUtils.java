@@ -1,13 +1,13 @@
 package dev.shadowsoffire.placebo.util;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 public class EnchantmentUtils {
-	public static boolean chargeExperience(PlayerEntity player, int xpCost) {
+	public static boolean chargeExperience(Player player, int xpCost) {
 		throw new AssertionError();
 	}
 
-	public static int getExperience(PlayerEntity player) {
+	public static int getExperience(Player player) {
 		throw new AssertionError();
 	}
 

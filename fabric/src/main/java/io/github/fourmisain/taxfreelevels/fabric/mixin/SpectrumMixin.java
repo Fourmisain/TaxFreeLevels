@@ -3,7 +3,7 @@ package io.github.fourmisain.taxfreelevels.fabric.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import de.dafuqs.spectrum.inventories.BedrockAnvilScreenHandler;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(value = BedrockAnvilScreenHandler.class, priority = 1500)
 public abstract class SpectrumMixin {
 	@ModifyArg(
-		method = "onTakeOutput",
+		method = "onTake",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/entity/player/PlayerEntity;addExperienceLevels(I)V"
+			target = "Lnet/minecraft/world/entity/player/Player;giveExperienceLevels(I)V"
 		),
 		index = 0
 	)
-	public int taxfreelevels$flattenAnvilCost(int negativeLevelCost, @Local(argsOnly = true) PlayerEntity player) {
+	public int taxfreelevels$flattenAnvilCost(int negativeLevelCost, @Local(argsOnly = true) Player player) {
 		TaxFreeLevels.applyFlattenedXpCost(player, -negativeLevelCost);
 		return 0; // we already paid in XP
 	}

@@ -1,20 +1,20 @@
 package io.github.fourmisain.taxfreelevels;
 
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
-public record ServerConfigPayload(TaxFreeLevelsConfig config) implements CustomPayload {
-	public static final Id<ServerConfigPayload> ID = new Id<>(TaxFreeLevels.id("server_config"));
+public record ServerConfigPayload(TaxFreeLevelsConfig config) implements CustomPacketPayload {
+	public static final Type<ServerConfigPayload> TYPE = new Type<>(TaxFreeLevels.id("server_config"));
 
-	public static final PacketCodec<PacketByteBuf, ServerConfigPayload> CODEC = PacketCodec.of(
+	public static final StreamCodec<FriendlyByteBuf, ServerConfigPayload> CODEC = StreamCodec.ofMember(
 		(value, buf) -> {
 			String json = TaxFreeLevelsConfig.GSON.toJson(TaxFreeLevelsConfig.LOCAL_CONFIG.get());
-			buf.writeString(json);
+			buf.writeUtf(json);
 		},
 		buf -> {
-			String json = buf.readString(32767);
+			String json = buf.readUtf(32767);
 			try {
 				TaxFreeLevelsConfig config = TaxFreeLevelsConfig.GSON.fromJson(json, TaxFreeLevelsConfig.class);
 				return new ServerConfigPayload(config);
@@ -25,7 +25,7 @@ public record ServerConfigPayload(TaxFreeLevelsConfig config) implements CustomP
 		});
 
 	@Override
-	public Id<? extends CustomPayload> getId() {
-		return ID;
+	public Type<? extends CustomPacketPayload> type() {
+		return TYPE;
 	}
 }

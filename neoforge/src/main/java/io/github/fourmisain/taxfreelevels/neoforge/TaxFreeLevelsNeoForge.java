@@ -4,8 +4,8 @@ import io.github.fourmisain.taxfreelevels.ServerConfigPayload;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevelsConfig;
 import me.shedaniel.autoconfig.AutoConfigClient;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.ActionResult;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.InteractionResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
@@ -37,25 +37,25 @@ public class TaxFreeLevelsNeoForge {
 			.optional();
 
 		registrar.configurationToClient(
-			ServerConfigPayload.ID,
+			ServerConfigPayload.TYPE,
 			ServerConfigPayload.CODEC,
 			(payload, context) -> {
-				handleReceivedServerConfig(payload.config(), MinecraftClient.getInstance());
+				handleReceivedServerConfig(payload.config(), Minecraft.getInstance());
 			}
 		);
 
 		registrar.playToClient(
-			ServerConfigPayload.ID,
+			ServerConfigPayload.TYPE,
 			ServerConfigPayload.CODEC,
 			(payload, context) -> {
-				handleReceivedServerConfig(payload.config(), MinecraftClient.getInstance());
+				handleReceivedServerConfig(payload.config(), Minecraft.getInstance());
 			}
 		);
 	}
 
 	@SubscribeEvent
 	public static void register(RegisterConfigurationTasksEvent event) {
-		if (event.getListener().hasChannel(ServerConfigPayload.ID)) {
+		if (event.getListener().hasChannel(ServerConfigPayload.TYPE)) {
 			event.register(new ServerConfigConfigurationTask(event.getListener()));
 		}
 	}
@@ -74,19 +74,19 @@ public class TaxFreeLevelsNeoForge {
 				// send changed config to connected clients in singleplayer, used for Essential or e4mc
 				TaxFreeLevelsConfig.LOCAL_CONFIG.registerSaveListener((manager, config) -> {
 					// PacketDistributor.sendToAllPlayers would send to vanilla clients as well
-					var client = MinecraftClient.getInstance();
-					if (client.isInSingleplayer()) {
-						var server = client.getServer();
+					var client = Minecraft.getInstance();
+					if (client.isLocalServer()) {
+						var server = client.getSingleplayerServer();
 						if (server != null) {
-							for (var player : server.getPlayerManager().getPlayerList()) {
-								if (player.networkHandler.hasChannel(ServerConfigPayload.ID)) {
+							for (var player : server.getPlayerList().getPlayers()) {
+								if (player.connection.hasChannel(ServerConfigPayload.TYPE)) {
 									PacketDistributor.sendToPlayer(player, new ServerConfigPayload(TaxFreeLevelsConfig.LOCAL_CONFIG.get()));
 								}
 							}
 						}
 					}
 
-					return ActionResult.PASS;
+					return InteractionResult.PASS;
 				});
 			});
 		}

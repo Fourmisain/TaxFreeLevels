@@ -6,12 +6,12 @@
   "plugin": "io.github.fourmisain.taxfreelevels.fabric.MixinConfig",
   "mixins": [
     "CheapAnvilRenameMixin",
-    "EnchantmentScreenHandlerMixin",
+    "EnchantmentMenuMixin",
     "FlattenAnvilCostMixin",
     "FlattenEnchantmentCostMixin",
     "FlattenEnchantmentCostPreMixin",
     "RemoveAnvilLimitMixin",
-    "ServerPlayerEntityMixin"
+    "ServerPlayerMixin"
   ],
   "client": [
     "RemoveTooExpensiveMessageMixin"

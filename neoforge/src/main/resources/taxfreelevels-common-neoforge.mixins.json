@@ -6,11 +6,11 @@
 	"plugin": "io.github.fourmisain.taxfreelevels.neoforge.MixinConfig",
 	"mixins": [
 		"CheapAnvilRenameMixin",
-		"EnchantmentScreenHandlerMixin",
+		"EnchantmentMenuMixin",
 		"FlattenAnvilCostMixin",
 		"FlattenEnchantmentCostPreMixin",
 		"RemoveAnvilLimitMixin",
-		"ServerPlayerEntityMixin"
+		"ServerPlayerMixin"
 	],
 	"client": [
 		"RemoveTooExpensiveMessageMixin"

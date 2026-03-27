@@ -6,21 +6,21 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.authlib.GameProfile;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin extends PlayerEntity {
-	public ServerPlayerEntityMixin(World world, GameProfile profile) {
-		super(world, profile);
+@Mixin(ServerPlayer.class)
+public abstract class ServerPlayerMixin extends Player {
+	public ServerPlayerMixin(Level level, GameProfile profile) {
+		super(level, profile);
 	}
 
 	@Definition(id = "experience", local = @Local(type = int.class, argsOnly = true))
 	@Expression("experience != 0")
-	@ModifyExpressionValue(method = "addExperience", at = @At("MIXINEXTRAS:EXPRESSION"))
+	@ModifyExpressionValue(method = "giveExperiencePoints", at = @At("MIXINEXTRAS:EXPRESSION"))
 	private boolean skipCheck(boolean original) {
 		if (TaxFreeLevels.forceRecalculateAndSync.get())
 			return true;

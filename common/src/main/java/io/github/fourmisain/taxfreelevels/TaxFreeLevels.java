@@ -1,7 +1,7 @@
 package io.github.fourmisain.taxfreelevels;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +10,7 @@ public class TaxFreeLevels {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static Identifier id(String path) {
-        return Identifier.of(MOD_ID, path);
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
     /** For example usage see this mod's fabric.mod.json */
@@ -20,13 +20,13 @@ public class TaxFreeLevels {
     public static final ThreadLocal<Boolean> forceRecalculateAndSync = ThreadLocal.withInitial(() -> false);
 
     /** The XP needed to get from level 'from' to level 'to' */
-    public static int getXpDifference(PlayerEntity player, int from, int to) {
+    public static int getXpDifference(Player player, int from, int to) {
         int currentLevel = player.experienceLevel;
 
         int xpSum = 0;
         for (int l = from; l < to; l++) {
             player.experienceLevel = l;
-            xpSum += player.getNextLevelExperience();
+            xpSum += player.getXpNeededForNextLevel();
         }
 
         player.experienceLevel = currentLevel;
@@ -35,12 +35,12 @@ public class TaxFreeLevels {
     }
 
     /** A way to add experience without affecting the player's score */
-    public static void addNoScoreExperience(PlayerEntity player, int xp) {
+    public static void addNoScoreExperience(Player player, int xp) {
         /*
          * note: there's the SCORE data tracker (used on the death screen) but also totalExperience,
          * which used for the XP scoreboard criterion, neither of which we wanna touch
          */
-        player.experienceProgress += (float) xp / (float) player.getNextLevelExperience();
+        player.experienceProgress += (float) xp / (float) player.getXpNeededForNextLevel();
         recalculateAndSynchronizeExperience(player);
 
         // assuming addNoScoreExperience() is only called once per pay, we use the opportunity to setup the next pay
@@ -60,7 +60,7 @@ public class TaxFreeLevels {
     }
 
     /** The "flattened" XP cost */
-    public static int getFlattenedXpCost(PlayerEntity player, int levelCost) {
+    public static int getFlattenedXpCost(Player player, int levelCost) {
         int base;
         if (getLevelRequirement() >= 0) {
             base = Math.max(getLevelRequirement(), TaxFreeLevelsConfig.get().levelBase);
@@ -78,7 +78,7 @@ public class TaxFreeLevels {
     }
 
     /** Pay the "flattened" XP cost for the given level cost */
-    public static void applyFlattenedXpCost(PlayerEntity player, int levelCost) {
+    public static void applyFlattenedXpCost(Player player, int levelCost) {
         /*
          * in vanilla, paying levels doesn't actually touch the level progress.
          * since you need more XP for higher levels this actually means you lose some XP due to your progress now equating to less XP
@@ -88,9 +88,9 @@ public class TaxFreeLevels {
         addNoScoreExperience(player, -getFlattenedXpCost(player, levelCost));
     }
 
-    public static void recalculateAndSynchronizeExperience(PlayerEntity player) {
+    public static void recalculateAndSynchronizeExperience(Player player) {
         forceRecalculateAndSync.set(true);
-        player.addExperience(0);
+        player.giveExperiencePoints(0);
         forceRecalculateAndSync.remove();
     }
 }
