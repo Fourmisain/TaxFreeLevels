@@ -1,7 +1,10 @@
+import java.nio.file.*
+import java.nio.file.attribute.BasicFileAttributes
+
 plugins {
-	id "architectury-plugin" version "3.4-SNAPSHOT"
-	id "dev.architectury.loom" version "1.13-SNAPSHOT" apply false
-	id "com.gradleup.shadow" version "8.3.+" apply false
+	id "dev.architectury.loom-no-remap" version "1.14-SNAPSHOT" apply false
+	id "architectury-plugin" version "3.5-SNAPSHOT"
+	id "com.gradleup.shadow" version "9.4.+" apply false
 	id "com.matthewprenger.cursegradle" version "1.4.0" apply false
 	id "com.modrinth.minotaur" version "2.+" apply false
 	id "minepkg-publish" version "latest.release" apply false
@@ -16,9 +19,8 @@ allprojects {
 }
 
 subprojects {
-	apply plugin: 'dev.architectury.loom'
+	apply plugin: 'dev.architectury.loom-no-remap'
 	apply plugin: 'architectury-plugin'
-	apply plugin: 'maven-publish'
 
 	loom {
 		runs {
@@ -51,7 +53,6 @@ subprojects {
 
 	dependencies {
 		minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-		mappings loom.officialMojangMappings()
 	}
 
 	java {
@@ -86,6 +87,64 @@ subprojects {
 	def projectGameVersions = toList(property("${loader}_game_version_list".toString()) as String)
 	def capitalizedLoader = loader == 'neoforge' ? 'NeoForge' : loader.capitalize()
 
+	apply plugin: 'com.gradleup.shadow'
+
+	loom {
+		accessWidenerPath = project(":common").loom.accessWidenerPath
+	}
+
+	configurations {
+		common {
+			canBeResolved = true
+			canBeConsumed = false
+		}
+		compileClasspath.extendsFrom common
+		runtimeClasspath.extendsFrom common
+
+		// Files in this configuration will be bundled into your mod using the Shadow plugin.
+		// Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
+		shadowBundle {
+			canBeResolved = true
+			canBeConsumed = false
+		}
+	}
+
+	jar {
+		archiveClassifier = "raw"
+	}
+
+	// see https://gist.github.com/shedaniel/18d4eebf940e9c3296e87d994ebb2838
+	shadowJar {
+		dependsOn(jar)
+		mainSpec.sourcePaths.clear()       // Remove default source set inclusion
+		from(zipTree(jar.archiveFile))     // Unpack jar output (preserves Loom modifications)
+
+		configurations = [project.configurations.shadowBundle]
+		archiveClassifier = null           // shadowJar becomes the main artifact
+	}
+
+	tasks.register('finalize') {
+		doLast {
+			// delete "header files" from jar
+			var jar = shadowJar.archiveFile.get().asFile.toPath()
+			if (Files.exists(jar)) {
+				var jarFileUri = new URI('jar:file', jar.toUri().getSchemeSpecificPart(), jar.toUri().getFragment())
+
+				def del = (fs, pkg) -> {
+					def path = fs.getPath(pkg)
+					if (Files.exists(path)) Files.walkFileTree(path, new DeletingFileVisitor());
+				}
+
+				try (FileSystem fs = FileSystems.newFileSystem(jarFileUri, ['create': 'false'])) {
+					del(fs, "dev")
+					del(fs, "draylar")
+				}
+			}
+		}
+	}
+
+	build.finalizedBy(finalize)
+
 	apply plugin: "com.modrinth.minotaur"
 
 	modrinth {
@@ -94,7 +153,7 @@ subprojects {
 		versionName = project.mod_version + "-" + loader
 		versionNumber = project.mod_version
 		versionType = "release"
-		uploadFile = remapJar
+		uploadFile = shadowJar
 		changelog = changesMd
 		gameVersions = projectGameVersions
 		loaders = [loader]
@@ -127,7 +186,7 @@ subprojects {
 				toList(project.curseforge_dependencies).each{ requiredDependency(it) }
 				if (loader == 'fabric') toList(project.curseforge_fabric_dependencies).each{ requiredDependency(it) }
 			}
-			mainArtifact(remapJar.archiveFile.get().asFile) {
+			mainArtifact(shadowJar.archiveFile.get().asFile) { // needs to be configured after shadowJar
 				displayName = "${project.mod_version} [${capitalizedLoader} ${versionRange(projectGameVersions)}]"
 			}
 			afterEvaluate {
@@ -147,13 +206,27 @@ subprojects {
 
 	minepkg {
 		apiKey = System.getenv("MINEPKG_TOKEN")
-		artifact = remapJar
+		artifact = jar
 		platform = loader
 		name = project.minepkg_id
 		version = project.mod_version + "+" + project.minecraft_version
 		license = "MIT"
 		minecraftVersionRange = project.fabric_game_version_range
 		toList(project.minepkg_dependencies).each{ require(it) }
+	}
+}
+
+class DeletingFileVisitor extends SimpleFileVisitor<Path> {
+	@Override
+	FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
+		Files.delete(path);
+		return FileVisitResult.CONTINUE;
+	}
+
+	@Override
+	FileVisitResult postVisitDirectory(Path directory, IOException ioException) throws IOException {
+		Files.delete(directory);
+		return FileVisitResult.CONTINUE;
 	}
 }
 

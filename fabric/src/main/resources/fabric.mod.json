@@ -31,9 +31,9 @@
 		"taxfreelevels-fabric.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.17.3",
+		"fabricloader": "${fabric_loader_version_range}",
 		"minecraft": "${fabric_game_version_range}",
-		"fabric": "*",
+		"fabric-api": "*",
 		"cloth-config": "*"
 	},
 	"custom": {

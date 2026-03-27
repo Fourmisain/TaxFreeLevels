@@ -1,14 +1,13 @@
 package io.github.fourmisain.taxfreelevels.fabric.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import de.dafuqs.spectrum.inventories.BedrockAnvilScreenHandler;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(value = BedrockAnvilScreenHandler.class, priority = 1500)
+@Mixin(targets = "de.dafuqs.spectrum.inventories.BedrockAnvilScreenHandler", priority = 1500)
 public abstract class SpectrumMixin {
 	@ModifyArg(
 		method = "onTake",

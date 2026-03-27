@@ -10,8 +10,8 @@ import net.fabricmc.fabric.api.networking.v1.ServerConfigurationNetworking;
 public class TaxFreeLevelsFabric  implements ModInitializer {
 	@Override
 	public void onInitialize() {
-		PayloadTypeRegistry.configurationS2C().register(ServerConfigPayload.TYPE, ServerConfigPayload.CODEC);
-		PayloadTypeRegistry.playS2C().register(ServerConfigPayload.TYPE, ServerConfigPayload.CODEC);
+		PayloadTypeRegistry.clientboundConfiguration().register(ServerConfigPayload.TYPE, ServerConfigPayload.CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(ServerConfigPayload.TYPE, ServerConfigPayload.CODEC);
 
 		ServerConfigurationConnectionEvents.CONFIGURE.register((handler, server) -> {
 			server.execute(() -> {
