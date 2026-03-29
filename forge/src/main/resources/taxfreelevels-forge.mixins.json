@@ -12,7 +12,8 @@
     "FlattenEnchantmentCostMixin",
     "TetraMixin",
     "Waystones2Mixin",
-    "WaystonesMixin"
+    "WaystonesMixin",
+    "twilightforest.UncraftingSlotMixin"
   ],
   "client": [
     "RemoveTooExpensiveMessageMixin"

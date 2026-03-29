@@ -84,6 +84,10 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!isModInstalled("disenchanting")) {
 			disabledMixins.add("DisenchantingForgeMixin");
 		}
+
+		if (!isModInstalled("twilightforest")) {
+			disabledMixins.add("twilightforest.UncraftingSlotMixin");
+		}
 	}
 
 	@Override
