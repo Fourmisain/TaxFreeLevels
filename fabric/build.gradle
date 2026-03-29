@@ -60,7 +60,7 @@ dependencies {
 
 	common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
 	shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
-	common(project(path: ":fabric1_17", configuration: "namedElements")) { transitive false }
+	common(project(path: ":fabric1_17", configuration: "namedElements")) { transitive = false }
 	shadowBundle(project(path: ":fabric1_17", configuration: "transformProductionFabric"))
 }
 
