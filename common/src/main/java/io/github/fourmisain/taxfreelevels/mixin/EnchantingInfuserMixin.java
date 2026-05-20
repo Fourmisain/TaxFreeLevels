@@ -1,4 +1,4 @@
-package io.github.fourmisain.taxfreelevels.neoforge.mixin;
+package io.github.fourmisain.taxfreelevels.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Pseudo
-@Mixin(targets = "fuzs.enchantinginfuser.world.inventory.InfuserMenu")
+@Mixin(targets = "fuzs.enchantinginfuser.common.world.inventory.InfuserMenu")
 public abstract class EnchantingInfuserMixin {
 	@ModifyArg(
 		method = "*",
