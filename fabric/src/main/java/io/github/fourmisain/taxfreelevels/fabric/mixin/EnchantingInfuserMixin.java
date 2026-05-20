@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Pseudo
-@Mixin(targets = "fuzs.enchantinginfuser.world.inventory.InfuserMenu")
+@Mixin(targets = "fuzs.enchantinginfuser.common.world.inventory.InfuserMenu")
 public abstract class EnchantingInfuserMixin {
 	@ModifyArg(
 		method = "*",
