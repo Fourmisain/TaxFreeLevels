@@ -7,7 +7,6 @@
 	"mixins": [
 		"DisenchantingForgeMixin",
 		"DisenchantingTableBlockEntityMixin",
-		"EnchantingInfuserMixin",
 		"EnchantmentUtilsMixin",
 		"FlattenEnchantmentCostMixin"
 	],

@@ -70,6 +70,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!isModInstalled("disenchanting")) {
 			disabledMixins.add("DisenchantingForgeMixin");
 		}
+
+		if (!isModInstalled("backpacked"))
+			disabledMixins.add("backpacked.UnlockableControllerMixin");
 	}
 
 	@Override

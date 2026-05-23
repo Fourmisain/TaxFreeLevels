@@ -10,7 +10,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -23,7 +22,7 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import static io.github.fourmisain.taxfreelevels.TaxFreeLevelsClient.handleReceivedServerConfig;
 
 @Mod(TaxFreeLevels.MOD_ID)
-@EventBusSubscriber(bus = Bus.MOD)
+@EventBusSubscriber
 public class TaxFreeLevelsNeoForge {
 	@SubscribeEvent
 	public static void commonSetup(FMLCommonSetupEvent event) {
@@ -62,7 +61,7 @@ public class TaxFreeLevelsNeoForge {
 	}
 
 	@Mod(value = TaxFreeLevels.MOD_ID, dist = Dist.CLIENT)
-	@EventBusSubscriber(bus = Bus.MOD, value = Dist.CLIENT)
+	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class ClientModEvents {
 		public ClientModEvents() {
 			ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () ->
