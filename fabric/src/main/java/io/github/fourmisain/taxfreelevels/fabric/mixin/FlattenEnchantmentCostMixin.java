@@ -1,4 +1,4 @@
-package io.github.fourmisain.taxfreelevels.mixin;
+package io.github.fourmisain.taxfreelevels.fabric.mixin;
 
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
