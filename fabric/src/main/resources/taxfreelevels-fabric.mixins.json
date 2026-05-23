@@ -1,23 +1,24 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "io.github.fourmisain.taxfreelevels.fabric.mixin",
-  "compatibilityLevel": "JAVA_${java_version}",
-  "plugin": "io.github.fourmisain.taxfreelevels.fabric.MixinConfig",
-  "mixins": [
-    "CharmMixin",
-    "DisenchantingFabricMixin",
-    "DisenchantingTableBlockEntityMixin",
-    "EnchantingInfuserMixin",
-    "EnchantmentUtilsMixin",
-    "RerollMixin",
-    "SpectrumLegacyMixin",
-    "SpectrumMixin"
-  ],
-  "client": [
-    "RemoveTooExpensiveMessageMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+	"required": true,
+	"minVersion": "0.8",
+	"package": "io.github.fourmisain.taxfreelevels.fabric.mixin",
+	"compatibilityLevel": "JAVA_${java_version}",
+	"plugin": "io.github.fourmisain.taxfreelevels.fabric.MixinConfig",
+	"mixins": [
+		"CharmMixin",
+		"DisenchantingFabricMixin",
+		"DisenchantingTableBlockEntityMixin",
+		"EnchantingInfuserMixin",
+		"EnchantmentUtilsMixin",
+		"FlattenEnchantmentCostMixin",
+		"RerollMixin",
+		"SpectrumLegacyMixin",
+		"SpectrumMixin"
+	],
+	"client": [
+		"RemoveTooExpensiveMessageMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }

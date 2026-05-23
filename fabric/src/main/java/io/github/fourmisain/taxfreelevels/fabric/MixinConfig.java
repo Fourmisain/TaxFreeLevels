@@ -74,10 +74,7 @@ public class MixinConfig implements IMixinConfigPlugin {
 		}
 
 		if (!isLoaded("charm")) {
-			disabledMixins.add("Charm1_17Mixin");
 			disabledMixins.add("CharmMixin");
-		} else {
-			disabledMixins.add(testVersion("minecraft", ">=1.18") ? "Charm1_17Mixin" : "CharmMixin");
 		}
 
 		if (!isLoaded("spectrum")) {
@@ -106,6 +103,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!isLoaded("disenchantingfabric")) {
 			disabledMixins.add("DisenchantingFabricMixin");
 		}
+
+		if (!isLoaded("backpacked"))
+			disabledMixins.add("backpacked.UnlockableControllerMixin");
 	}
 
 	@Override
