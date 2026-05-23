@@ -134,7 +134,7 @@ subprojects {
 	tasks.register('finalize') {
 		doLast {
 			// delete "header files" from jar
-			var jar = shadowJar.archiveFile.get().asFile.toPath()
+			var jar = remapJar.archiveFile.get().asFile.toPath()
 			if (Files.exists(jar)) {
 				var jarFileUri = new URI('jar:file', jar.toUri().getSchemeSpecificPart(), jar.toUri().getFragment())
 
