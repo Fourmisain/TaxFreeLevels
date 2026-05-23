@@ -5,14 +5,14 @@
 	"compatibilityLevel": "JAVA_${java_version}",
 	"plugin": "io.github.fourmisain.taxfreelevels.neoforge.MixinConfig",
 	"mixins": [
-		"backpacked.UnlockableControllerMixin",
 		"CheapAnvilRenameMixin",
 		"EnchantingInfuserMixin",
 		"EnchantmentMenuMixin",
 		"FlattenAnvilCostMixin",
 		"FlattenEnchantmentCostPreMixin",
 		"RemoveAnvilLimitMixin",
-		"ServerPlayerMixin"
+		"ServerPlayerMixin",
+		"backpacked.UnlockableControllerMixin"
 	],
 	"client": [
 		"RemoveTooExpensiveMessageMixin"
