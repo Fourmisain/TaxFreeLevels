@@ -6,6 +6,7 @@
 	"plugin": "io.github.fourmisain.taxfreelevels.fabric.MixinConfig",
 	"mixins": [
 		"CharmMixin",
+		"EnchantingInfuserMixin",
 		"EnchantmentUtilsMixin",
 		"FlattenEnchantmentCostMixin",
 		"RerollMixin",

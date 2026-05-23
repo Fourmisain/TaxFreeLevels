@@ -100,6 +100,8 @@ subprojects {
 		platformSetupLoomIde()
 		if (loader == 'neoforge') {
 			neoForge()
+		} else if (loader == 'forge') {
+			forge()
 		} else {
 			fabric()
 		}
@@ -112,7 +114,7 @@ subprojects {
 		}
 		compileClasspath.extendsFrom common
 		runtimeClasspath.extendsFrom common
-		(loader == 'neoforge' ? developmentNeoForge : developmentFabric).extendsFrom common
+		(loader == 'neoforge' ? developmentNeoForge : loader == 'forge' ? developmentForge : developmentFabric).extendsFrom common
 
 		// Files in this configuration will be bundled into your mod using the Shadow plugin.
 		// Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.

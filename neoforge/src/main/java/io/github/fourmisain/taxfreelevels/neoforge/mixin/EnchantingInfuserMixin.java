@@ -1,4 +1,4 @@
-package io.github.fourmisain.taxfreelevels.mixin;
+package io.github.fourmisain.taxfreelevels.neoforge.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
