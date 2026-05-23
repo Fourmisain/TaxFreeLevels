@@ -88,6 +88,10 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!isModInstalled("twilightforest")) {
 			disabledMixins.add("twilightforest.UncraftingSlotMixin");
 		}
+
+		if (!isModInstalled("alexsmobs")) {
+			disabledMixins.add("alexsmobs.MenuTransmutationTableMixin");
+		}
 	}
 
 	@Override

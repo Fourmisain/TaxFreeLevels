@@ -13,6 +13,7 @@
     "TetraMixin",
     "Waystones2Mixin",
     "WaystonesMixin",
+    "alexsmobs.MenuTransmutationTableMixin",
     "twilightforest.UncraftingSlotMixin"
   ],
   "client": [
