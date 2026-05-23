@@ -91,6 +91,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 		} else {
 			disabledMixins.add("EnchantmentUtilsMixin");
 		}
+
+		if (!isLoaded("backpacked"))
+			disabledMixins.add("backpacked.UnlockableControllerMixin");
 	}
 
 	@Override
