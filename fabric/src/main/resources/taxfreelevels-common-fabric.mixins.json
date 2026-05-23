@@ -6,12 +6,13 @@
   "plugin": "io.github.fourmisain.taxfreelevels.fabric.MixinConfig",
   "mixins": [
     "CheapAnvilRenameMixin",
+    "EnchantingInfuserMixin",
     "EnchantmentScreenHandlerMixin",
     "FlattenAnvilCostMixin",
-    "FlattenEnchantmentCostMixin",
     "FlattenEnchantmentCostPreMixin",
     "RemoveAnvilLimitMixin",
-    "ServerPlayerEntityMixin"
+    "ServerPlayerEntityMixin",
+    "backpacked.UnlockableControllerMixin"
   ],
   "client": [
     "RemoveTooExpensiveMessageMixin"
@@ -19,7 +20,6 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "refmap": "TaxFreeLevels-common-refmap.json",
   "mixinextras": {
     "minVersion": "0.5.0"
   }
