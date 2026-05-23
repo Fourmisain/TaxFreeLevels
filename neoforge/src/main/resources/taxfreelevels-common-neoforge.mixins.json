@@ -9,7 +9,8 @@
 		"EnchantmentScreenHandlerMixin",
 		"FlattenAnvilCostMixin",
 		"FlattenEnchantmentCostPreMixin",
-		"RemoveAnvilLimitMixin"
+		"RemoveAnvilLimitMixin",
+		"backpacked.UnlockableControllerMixin"
 	],
 	"client": [
 		"RemoveTooExpensiveMessageMixin"

@@ -101,6 +101,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!isLoaded("disenchanting_table")) {
 			disabledMixins.add("DisenchantingTableBlockEntityMixin");
 		}
+
+		if (!isLoaded("backpacked"))
+			disabledMixins.add("backpacked.UnlockableControllerMixin");
 	}
 
 	@Override
