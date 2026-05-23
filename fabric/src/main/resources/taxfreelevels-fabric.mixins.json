@@ -7,6 +7,7 @@
 	"mixins": [
 		"CharmMixin",
 		"DisenchantingTableBlockEntityMixin",
+		"EnchantingInfuserMixin",
 		"EnchantmentUtilsMixin",
 		"FlattenEnchantmentCostMixin",
 		"RerollMixin",

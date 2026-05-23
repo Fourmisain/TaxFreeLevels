@@ -6,7 +6,6 @@
 	"plugin": "io.github.fourmisain.taxfreelevels.fabric.MixinConfig",
 	"mixins": [
 		"CheapAnvilRenameMixin",
-		"EnchantingInfuserMixin",
 		"EnchantmentScreenHandlerMixin",
 		"FlattenAnvilCostMixin",
 		"FlattenEnchantmentCostPreMixin",

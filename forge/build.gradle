@@ -1,0 +1,18 @@
+loom {
+	forge {
+		mixinConfig "taxfreelevels-common-forge.mixins.json"
+		mixinConfig "taxfreelevels-forge.mixins.json"
+	}
+}
+
+dependencies {
+	forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
+
+	compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${project.mixinextras_version}"))
+	implementation(include("io.github.llamalad7:mixinextras-forge:${project.mixinextras_version}"))
+
+	modApi "me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}"
+
+	common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+	shadowBundle project(path: ':common', configuration: 'transformProductionForge')
+}
