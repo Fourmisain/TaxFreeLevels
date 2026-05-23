@@ -1,7 +1,10 @@
+import java.nio.file.*
+import java.nio.file.attribute.BasicFileAttributes
+
 plugins {
 	id "architectury-plugin" version "3.4-SNAPSHOT"
 	id "dev.architectury.loom" version "1.13-SNAPSHOT" apply false
-	id "com.gradleup.shadow" version "8.3.+" apply false
+	id "com.gradleup.shadow" version "9.4.+" apply false
 	id "com.matthewprenger.cursegradle" version "1.4.0" apply false
 	id "com.modrinth.minotaur" version "2.+" apply false
 	id "minepkg-publish" version "latest.release" apply false
@@ -18,7 +21,6 @@ allprojects {
 subprojects {
 	apply plugin: 'dev.architectury.loom'
 	apply plugin: 'architectury-plugin'
-	apply plugin: 'maven-publish'
 
 	loom {
 		runs {
@@ -58,7 +60,6 @@ subprojects {
 	}
 
 	java {
-		withSourcesJar()
 		sourceCompatibility = targetCompatibility = JavaVersion.toVersion(project.java_version as Integer)
 	}
 
@@ -88,6 +89,70 @@ subprojects {
 	def changesMd = rootProject.file('changes.md').exists() ? rootProject.file('changes.md').getText("UTF-8") : ''
 	def projectGameVersions = toList(property("${loader}_game_version_list".toString()) as String)
 	def capitalizedLoader = loader == 'neoforge' ? 'NeoForge' : loader.capitalize()
+
+	apply plugin: 'com.gradleup.shadow'
+
+	loom {
+		accessWidenerPath = project(":common").loom.accessWidenerPath
+	}
+
+	architectury {
+		platformSetupLoomIde()
+		if (loader == 'neoforge') {
+			neoForge()
+		} else {
+			fabric()
+		}
+	}
+
+	configurations {
+		common {
+			canBeResolved = true
+			canBeConsumed = false
+		}
+		compileClasspath.extendsFrom common
+		runtimeClasspath.extendsFrom common
+		(loader == 'neoforge' ? developmentNeoForge : developmentFabric).extendsFrom common
+
+		// Files in this configuration will be bundled into your mod using the Shadow plugin.
+		// Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
+		shadowBundle {
+			canBeResolved = true
+			canBeConsumed = false
+		}
+	}
+
+	shadowJar {
+		configurations = [project.configurations.shadowBundle]
+		archiveClassifier = 'dev-shadow'
+	}
+
+	remapJar {
+		input.set shadowJar.archiveFile
+	}
+
+	tasks.register('finalize') {
+		doLast {
+			// delete "header files" from jar
+			var jar = shadowJar.archiveFile.get().asFile.toPath()
+			if (Files.exists(jar)) {
+				var jarFileUri = new URI('jar:file', jar.toUri().getSchemeSpecificPart(), jar.toUri().getFragment())
+
+				def del = (fs, pkg) -> {
+					def path = fs.getPath(pkg)
+					if (Files.exists(path)) Files.walkFileTree(path, new DeletingFileVisitor());
+				}
+
+				try (FileSystem fs = FileSystems.newFileSystem(jarFileUri, ['create': 'false'])) {
+					del(fs, "net")
+					del(fs, "dev")
+					del(fs, "draylar")
+				}
+			}
+		}
+	}
+
+	build.finalizedBy(finalize)
 
 	apply plugin: "com.modrinth.minotaur"
 
@@ -157,6 +222,20 @@ subprojects {
 		license = "MIT"
 		minecraftVersionRange = project.fabric_game_version_range
 		toList(project.minepkg_dependencies).each{ require(it) }
+	}
+}
+
+class DeletingFileVisitor extends SimpleFileVisitor<Path> {
+	@Override
+	FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
+		Files.delete(path);
+		return FileVisitResult.CONTINUE;
+	}
+
+	@Override
+	FileVisitResult postVisitDirectory(Path directory, IOException ioException) throws IOException {
+		Files.delete(directory);
+		return FileVisitResult.CONTINUE;
 	}
 }
 
