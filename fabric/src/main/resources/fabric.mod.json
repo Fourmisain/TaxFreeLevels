@@ -28,8 +28,7 @@
 	},
 	"mixins": [
 		"taxfreelevels-common-fabric.mixins.json",
-		"taxfreelevels-fabric.mixins.json",
-		"taxfreelevels-fabric1_17.mixins.json"
+		"taxfreelevels-fabric.mixins.json"
 	],
 	"depends": {
 		"fabricloader": "${fabric_loader_version_range}",
