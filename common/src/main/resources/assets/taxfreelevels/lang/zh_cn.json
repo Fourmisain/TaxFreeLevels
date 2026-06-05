@@ -1,0 +1,7 @@
+{
+  "text.autoconfig.taxfreelevels.title": "免税附魔",
+  "text.autoconfig.taxfreelevels.option.levelBase": "等级基准",
+  "text.autoconfig.taxfreelevels.option.levelBase.@Tooltip": "经验免税的起始等级。\n基准设得越低，“经验税”减免越多。\n\n设为 0 将移除所有经验税。\n如果你不希望改变游戏前期的平衡，30 级是一个合理的基准。\n\n注意：对于附魔台，该基准永远不会低于\n附魔台本身的等级要求。",
+  "text.autoconfig.taxfreelevels.option.removeAnvilLimit": "移除铁砧限制",
+  "text.autoconfig.taxfreelevels.option.removeAnvilLimit.@Tooltip": "移除铁砧 40 级的经验消耗上限，以及\n对应的“过于昂贵！”提示。"
+}
