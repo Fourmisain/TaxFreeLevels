@@ -28,12 +28,13 @@ public class TaxFreeLevelsPacketHandler {
 		INSTANCE.messageBuilder(TaxFreeLevelsConfig.class, 0, NetworkDirection.PLAY_TO_CLIENT)
 			.encoder((config, buf) -> ServerConfigPayload.write(buf, config))
 			.decoder(ServerConfigPayload::read)
-			.consumer(((config, context) -> {
+			.consumer((config, context) -> {
 				context.get().enqueueWork(() -> {
-					LogManager.getLogger("debug").warn("ASDHASKIHFDASKFHASF");
 					handleReceivedServerConfig(config, MinecraftClient.getInstance());
 				});
-			}))
+
+				return true; // handled
+			})
 			.add();
 	}
 }

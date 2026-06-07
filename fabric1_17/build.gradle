@@ -26,15 +26,6 @@ dependencies {
 
 	modCompileOnly "maven.modrinth:charm:${project.charm1_17_version}"
 
-	common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+	common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
 	shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
-}
-
-publishing {
-	publications {
-		mavenCommon(MavenPublication) {
-			artifactId = rootProject.archives_base_name
-			from components.java
-		}
-	}
 }

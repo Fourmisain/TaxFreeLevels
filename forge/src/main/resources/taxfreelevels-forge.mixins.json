@@ -1,22 +1,23 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "io.github.fourmisain.taxfreelevels.forge.mixin",
-  "compatibilityLevel": "JAVA_${java_version}",
-  "plugin": "io.github.fourmisain.taxfreelevels.forge.MixinConfig",
-  "mixins": [
-    "DisenchantingForgeMixin",
-    "EnchantingInfuserMixin",
-    "EnchantmentUtilsMixin",
-    "FlattenEnchantmentCostMixin",
-    "TetraMixin",
-    "Waystones2Mixin",
-    "WaystonesMixin"
-  ],
-  "client": [
-    "RemoveTooExpensiveMessageMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+	"required": true,
+	"minVersion": "0.8",
+	"package": "io.github.fourmisain.taxfreelevels.forge.mixin",
+	"compatibilityLevel": "JAVA_${java_version}",
+	"plugin": "io.github.fourmisain.taxfreelevels.forge.MixinConfig",
+	"mixins": [
+		"DisenchantingForgeMixin",
+		"EnchantingInfuserMixin",
+		"EnchantmentUtilsMixin",
+		"FlattenEnchantmentCostMixin",
+		"TetraMixin",
+		"Waystones2Mixin",
+		"WaystonesMixin",
+		"twilightforest.UncraftingSlotMixin"
+	],
+	"client": [
+		"RemoveTooExpensiveMessageMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }
