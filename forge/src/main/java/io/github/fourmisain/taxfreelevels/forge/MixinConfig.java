@@ -92,6 +92,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!isModInstalled("alexsmobs")) {
 			disabledMixins.add("alexsmobs.MenuTransmutationTableMixin");
 		}
+
+		if (!isModInstalled("sophisticatedbackpacks"))
+			disabledMixins.add("sophisticatedbackpacks.AnvilUpgradeTabMixin");
 	}
 
 	@Override

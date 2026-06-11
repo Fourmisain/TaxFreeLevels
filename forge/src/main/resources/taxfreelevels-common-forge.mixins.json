@@ -10,7 +10,8 @@
 		"FlattenAnvilCostMixin",
 		"FlattenEnchantmentCostPreMixin",
 		"RemoveAnvilLimitMixin",
-		"backpacked.UnlockableControllerMixin"
+		"backpacked.UnlockableControllerMixin",
+		"sophisticatedbackpacks.AnvilUpgradeTabMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
