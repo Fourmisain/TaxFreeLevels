@@ -65,6 +65,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 		if (!isModInstalled("backpacked"))
 			disabledMixins.add("backpacked.UnlockableControllerMixin");
+
+		if (!isModInstalled("sophisticatedbackpacks"))
+			disabledMixins.add("sophisticatedbackpacks.AnvilUpgradeTabMixin");
 	}
 
 	@Override
