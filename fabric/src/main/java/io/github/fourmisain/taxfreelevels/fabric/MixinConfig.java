@@ -98,6 +98,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 		} else {
 			disabledMixins.add("EnchantmentUtilsMixin");
 		}
+
+		if (!isLoaded("sophisticatedbackpacks"))
+			disabledMixins.add("sophisticatedbackpacks.AnvilUpgradeTabMixin");
 	}
 
 	@Override

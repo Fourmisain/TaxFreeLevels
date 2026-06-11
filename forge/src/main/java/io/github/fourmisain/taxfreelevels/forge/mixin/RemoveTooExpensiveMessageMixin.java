@@ -15,7 +15,7 @@ public abstract class RemoveTooExpensiveMessageMixin {
 		at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z", ordinal = 0, remap = true),
 		remap = false
 	)
-	public boolean taxfreelevels$removeAnvilLimit(boolean original) {
+	public boolean taxfreelevels$removeTooExpensiveMessage(boolean original) {
 		return TaxFreeLevelsConfig.get().removeAnvilLimit ? true : original;
 	}
 }

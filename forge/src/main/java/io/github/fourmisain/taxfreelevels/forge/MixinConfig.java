@@ -84,6 +84,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 		if (!isModInstalled("twilightforest")) {
 			disabledMixins.add("twilightforest.UncraftingSlotMixin");
 		}
+
+		if (!isModInstalled("sophisticatedbackpacks"))
+			disabledMixins.add("sophisticatedbackpacks.AnvilUpgradeTabMixin");
 	}
 
 	@Override
