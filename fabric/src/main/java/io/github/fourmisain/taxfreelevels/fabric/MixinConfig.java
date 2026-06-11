@@ -101,6 +101,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 		if (!isLoaded("backpacked"))
 			disabledMixins.add("backpacked.UnlockableControllerMixin");
+
+		if (!isLoaded("sophisticatedbackpacks"))
+			disabledMixins.add("sophisticatedbackpacks.AnvilUpgradeTabMixin");
 	}
 
 	@Override
