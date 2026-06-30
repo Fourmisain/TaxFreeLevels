@@ -1,13 +1,11 @@
 package io.github.fourmisain.taxfreelevels.mixin.sophisticatedbackpacks;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import io.github.fourmisain.taxfreelevels.TaxFreeLevels;
 import io.github.fourmisain.taxfreelevels.TaxFreeLevelsConfig;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 
 @SuppressWarnings("SimplifiableConditionalExpression")
 @Pseudo

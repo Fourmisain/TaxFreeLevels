@@ -97,6 +97,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 		if (!isLoaded("sophisticatedbackpacks"))
 			disabledMixins.add("sophisticatedbackpacks.AnvilUpgradeTabMixin");
+
+		if (!isLoaded("fixedminecraft"))
+			disabledMixins.add("fixedminecraft.AnvilScreenHandlerMixinMixin");
 	}
 
 	@Override
