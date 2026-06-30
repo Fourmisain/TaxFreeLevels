@@ -11,7 +11,8 @@
 		"EnchantmentUtilsMixin",
 		"FlattenEnchantmentCostMixin",
 		"RerollMixin",
-		"SpectrumMixin"
+		"SpectrumMixin",
+		"fixedminecraft.AnvilScreenHandlerMixinMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
