@@ -8,6 +8,16 @@ pluginManagement {
 			url = "https://gitlab.com/api/v4/projects/37712942/packages/maven"
 		}
 		gradlePluginPortal()
+		exclusiveContent {
+			forRepository {
+				maven {
+					url = 'https://maven.maxhenkel.de/repository/public'
+				}
+			}
+			filter {
+				includeGroupAndSubgroups 'de.maxhenkel'
+			}
+		}
 	}
 }
 
