@@ -95,6 +95,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 		if (!isModInstalled("sophisticatedbackpacks"))
 			disabledMixins.add("sophisticatedbackpacks.AnvilUpgradeTabMixin");
+
+		if (!isModInstalled("quark"))
+			disabledMixins.add("quark.MatrixEnchantingTableBlockEntityMixin");
 	}
 
 	@Override

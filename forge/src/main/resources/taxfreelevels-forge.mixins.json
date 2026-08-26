@@ -14,6 +14,7 @@
 		"Waystones2Mixin",
 		"WaystonesMixin",
 		"alexsmobs.MenuTransmutationTableMixin",
+		"quark.MatrixEnchantingTableBlockEntityMixin",
 		"twilightforest.UncraftingSlotMixin"
 	],
 	"injectors": {
