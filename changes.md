@@ -1,3 +1,7 @@
+## 1.4.25
+
+- [NeoForge 1.21.1] compatibility with Quark (Oddities)'s Matrix Enchanting
+
 ## 1.4.24
 
 - [1.21.1 - 1.21.11] compatibility with Fixed
