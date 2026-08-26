@@ -8,6 +8,7 @@ dependencies {
 	modApi "me.shedaniel.cloth:cloth-config-neoforge:${project.cloth_config_version}"
 
 	modCompileOnly "maven.modrinth:dis-enchanting-table:${project.dis_enchanting_table_version}"
+	modCompileOnly "maven.modrinth:quark:${project.quark_version}"
 
 	common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
 	shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')

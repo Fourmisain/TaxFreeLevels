@@ -9,7 +9,8 @@
 		"DisenchantingTableBlockEntityMixin",
 		"EnchantingInfuserMixin",
 		"EnchantmentUtilsMixin",
-		"FlattenEnchantmentCostMixin"
+		"FlattenEnchantmentCostMixin",
+		"quark.MatrixEnchantingTableBlockEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
