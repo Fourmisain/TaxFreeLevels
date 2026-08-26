@@ -1,3 +1,11 @@
+## 1.4.25
+
+- [Forge 1.20.1, NeoForge 1.21.1] compatibility with Quark (Oddities)'s Matrix Enchanting
+
+## 1.4.24
+
+- [1.21.1 - 1.21.11] compatibility with Fixed
+
 ## 1.5.4 / 1.4.23
 
 - compatibility with Sophisticated Backpacks' Anvil Upgrade (purely visual "Too Expensive" is removed, everything else already worked)
